@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:padding="@dimen/dimen_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:visibility="visible"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/rounded_corner_frame"
+            android:orientation="horizontal" >
+
+            <Spinner
+                android:id="@+id/Reports_ReportType_Sp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:divider="@color/separator"
+                android:dividerHeight="1.0dip"
+                android:entries="@array/Reports_type_new"
+                android:fadeScrollbars="true"
+                android:fadingEdge="none"
+                android:listSelector="@drawable/list_selector_flatcolor"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+
+        <FrameLayout
+            android:layout_marginTop="4dp"
+            android:id="@+id/Reports_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</layout>

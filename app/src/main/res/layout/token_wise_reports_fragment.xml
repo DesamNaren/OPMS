@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="2dp"
+        android:background="#f26222"
+        android:orientation="horizontal" >
+
+        <Spinner
+            android:visibility="gone"
+            android:id="@+id/Reports_ReportType_Sp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="50dp"
+            android:divider="@color/separator"
+            android:dividerHeight="1.0dip"
+            android:entries="@array/Reports_type_new"
+            android:fadeScrollbars="true"
+            android:fadingEdge="none"
+            android:listSelector="@drawable/list_selector_flatcolor"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/inputSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:gravity="center"
+        android:background="@drawable/rounded_corner_frame"
+        android:hint="Search by token number"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingRight="10sp" />
+
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="6dp"
+        android:layout_marginTop="6dp"
+        android:id="@+id/tokenRV"
+        android:layout_width="match_parent"
+        android:background="@drawable/rounded_corner_frame"
+        android:layout_height="match_parent"/>
+
+
+
+</LinearLayout>
+</layout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <androidx.appcompat.widget.SearchView
+                android:layout_weight="1"
+                android:id="@+id/inputSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corner_frame"
+                android:cursorVisible="false"
+                android:drawableRight="@android:drawable/ic_menu_search"
+                android:gravity="center"
+                android:hint="Search by Mill ID (or) Mill Code (or) Mill Name"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingRight="10sp" />
+
+            <Spinner
+                android:visibility="gone"
+                android:layout_weight="1"
+                android:id="@+id/sp_mill"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/rounded_corner_frame"
+                android:gravity="center_vertical" />
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/roRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/rounded_corner_frame"
+            android:padding="6dp" />
+    </LinearLayout>
+</layout>

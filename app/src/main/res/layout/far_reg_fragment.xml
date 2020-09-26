@@ -1,0 +1,1826 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:id="@+id/sc_main"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <LinearLayout
+            android:id="@+id/root_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/rounded_corner_frame"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <com.cgg.pps.custom.CustomFontTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/SearchWithIDNumber"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <com.cgg.pps.custom.CustomFontEditText
+                        android:id="@+id/FR_searchdata_Et"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/rounded_corner_et"
+                        android:gravity="center_vertical"
+                        android:hint="@string/SearchWithIDNumber"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="12"
+                        android:padding="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textSize="20sp" /> <!--hint, inputType changed by Yamini on 03042017-->
+
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:id="@+id/FR_search_Tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/rounded_corner_button"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:padding="5dp"
+                        android:text="@string/getDetails"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/FR_main_ll"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/main1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/rounded_corner_frame"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="5"
+                            app:srcCompat="@drawable/user_orange" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="90"
+                            android:gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingLeft="10dp"
+                            android:text="@string/FarmerDetails"
+                            android:textColor="@color/headerTextColor"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/headerTextColor" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:weightSum="2.1"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:orientation="horizontal">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/FarmerName"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:visibility="visible" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_farmerName_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:digits=".abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                    android:gravity="center_vertical"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textPersonName|textCapWords"
+                                    android:maxLength="75"
+                                    android:paddingLeft="5dp"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1">
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/aadharNo"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:visibility="visible" />
+
+                                <Spinner
+                                    android:id="@+id/FR_RegistratonType_Sp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.3"
+                                    android:background="@android:drawable/btn_dropdown"
+                                    android:entries="@array/FR_RegistratonType"
+                                    android:textSize="20sp"
+                                    android:visibility="gone" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_aadhaarNo_Et"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:editable="false"
+                                    android:gravity="center_vertical"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="none"
+                                    android:maxLength="12"
+                                    android:paddingLeft="5dp"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2.1"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/FatherName"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_fatherName_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:digits=".abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                    android:gravity="center_vertical"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textPersonName|textCapWords"
+                                    android:maxLength="75"
+                                    android:padding="5dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/Gender"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <RadioGroup
+                                    android:id="@+id/FR_rg_gender"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.0"
+                                    android:orientation="horizontal">
+
+                                    <RadioButton
+                                        android:id="@+id/FR_genderMale_Rd"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1.0"
+                                        android:text="@string/Male"
+                                        android:textSize="20sp" />
+
+                                    <RadioButton
+                                        android:id="@+id/FR_genderFemale_Rd"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1.0"
+                                        android:text="@string/Female"
+                                        android:textSize="20sp" />
+                                </RadioGroup>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/Age"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_age_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:gravity="center_vertical"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="number"
+                                    android:maxLength="3"
+                                    android:padding="5dp"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:orientation="horizontal"
+                                android:visibility="visible">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/MobileNo"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_AddMobile_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:gravity="center_vertical"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:padding="5dp"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/District"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/FR_AddDistrict_Sp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="45dp"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:padding="10dp"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/Mandal"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/FR_AddMandal_Sp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:padding="10dp"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/Village"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/FR_AddVillage_Sp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/streetName"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_landMark_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="text"
+                                    android:maxLength="50"
+                                    android:padding="5dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/DoorNo"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_doorNo_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-/"
+                                    android:gravity="center_vertical"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="textCapCharacters"
+                                    android:maxLength="20"
+                                    android:padding="5dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:visibility="visible">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/PinCode"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_AddPincode_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:gravity="center_vertical"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="number"
+                                    android:maxLength="6"
+                                    android:padding="5dp"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="2.5"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/social_status"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+
+                                <Spinner
+                                    android:id="@+id/FR_Social_Status"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:padding="5dp"
+                                    android:textSize="20sp" />
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.1"/>
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/lomain1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/rounded_corner_frame"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="5"
+                            app:srcCompat="@drawable/bank" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="90"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="@string/BankDetails"
+                            android:textColor="@color/headerTextColor"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/headerTextColor" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5sp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0">
+
+                            <com.cgg.pps.custom.CustomFontTextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="2.5"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="@string/BankName"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <AutoCompleteTextView
+                                android:id="@+id/FR_BankName_Sp"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:background="@drawable/rectangular_et"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                                android:gravity="center_vertical"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0">
+
+                            <com.cgg.pps.custom.CustomFontTextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="2.5"
+                                android:gravity="center_vertical"
+                                android:paddingStart="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="@string/BranchName"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <AutoCompleteTextView
+                                android:id="@+id/FR_BankBranchName_Sp"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:background="@drawable/rectangular_et"
+                                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz "
+                                android:gravity="center_vertical"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0">
+
+                            <com.cgg.pps.custom.CustomFontTextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="2.5"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="@string/IFSCCode"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <com.cgg.pps.custom.CustomFontEditText
+                                android:id="@+id/FR_BankIFSCcode_Et"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:background="@drawable/rectangular_et"
+                                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+                                android:gravity="center_vertical"
+                                android:imeOptions="actionDone"
+                                android:inputType="textCapCharacters"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0">
+
+                            <com.cgg.pps.custom.CustomFontTextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="2.5"
+                                android:gravity="center_vertical"
+                                android:paddingStart="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="@string/NameAsPerBank"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <com.cgg.pps.custom.CustomFontEditText
+                                android:id="@+id/FR_FarmerNameAsPerBank_Et"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1.0"
+                                android:background="@drawable/rectangular_et"
+                                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:maxLength="75"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0">
+
+                            <com.cgg.pps.custom.CustomFontTextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="2.5"
+                                android:gravity="center_vertical"
+                                android:paddingStart="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="@string/AccountNo"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <com.cgg.pps.custom.CustomFontEditText
+                                android:id="@+id/FR_BankACNo_Et"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:background="@drawable/rectangular_et"
+                                android:gravity="center_vertical"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:longClickable="false"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"/>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0">
+
+                            <com.cgg.pps.custom.CustomFontTextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="2.5"
+                                android:gravity="center_vertical"
+                                android:paddingStart="5dp"
+                                android:paddingLeft="5dp"
+                                android:text="@string/AccountNoCfm"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <com.cgg.pps.custom.CustomFontEditText
+                                android:id="@+id/FR_BankACNo_CFM_Et"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:background="@drawable/rectangular_et"
+                                android:gravity="center_vertical"
+                                android:imeOptions="actionDone"
+                                android:inputType="numberPassword"
+                                android:longClickable="false"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/FR_LandDetails_LL"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/rounded_corner_frame"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="5"
+                            app:srcCompat="@drawable/farm" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="90"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="@string/land_det"
+                            android:textColor="@color/headerTextColor"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/FR_addNewRow_Btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:background="@drawable/rounded_corner_button"
+                            android:gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="@string/add_new_row"
+                            android:textColor="@color/white"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/headerTextColor" />
+
+                    <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5sp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/FR_LandDetailsHeader_Tr1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="2dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="60dp"
+                                    android:layout_height="fill_parent"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="ఎంచుకొను "
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="150dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/IsEnjoyer"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="200dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/OwnerName"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="150dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/OwnerAadhaar"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="150dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/relation"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="155dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/District"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="155dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/Mandal"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="155dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/Village"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="200dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/SurveyNo"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="220dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/Passbookno"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/khattaNo"
+                                    android:textColor="@color/white"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/Landinacers"
+                                    android:textColor="@color/white"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/Landtype"
+                                    android:textColor="@color/white"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/already_leasedExtent"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/leasedExtent"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/already_culExtent"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/cultivatedLand"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:text="@string/YealdPerAcers"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="115dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_marginLeft="2dp"
+                                    android:background="@color/cb_dark_gray"
+                                    android:gravity="center_vertical"
+                                    android:padding="5dp"
+                                    android:textColor="@color/white"
+                                    android:textSize="18dp"
+                                    android:textStyle="bold"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+
+                            <TableLayout
+                                android:id="@+id/FR_LandDetails_Tl"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    android:orientation="horizontal">
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:id="@+id/Fr_Token_generate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_marginEnd="48dp"
+                        android:layout_marginRight="48dp"
+                        android:background="@drawable/rounded_corner_button"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:padding="5dp"
+                        android:text="@string/TokenGeneration"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:id="@+id/FR_update_farmer_Tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/rounded_corner_button"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:padding="5dp"
+                        android:text="@string/updateDetails"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/tokenMapLayout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/rounded_corner_frame"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            app:srcCompat="@drawable/gunnies" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:orientation="horizontal">
+
+                            <com.cgg.pps.custom.CustomFontTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:paddingStart="10dp"
+                                android:paddingLeft="10dp"
+                                android:text="@string/PaddyDetailsRegistration"
+                                android:textColor="@color/headerTextColor"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <CheckBox
+                                android:id="@+id/FR_PaddyDetails_Cb"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:button="@drawable/custom_checkbox" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/headerTextColor" />
+
+                    <LinearLayout
+                        android:id="@+id/FR_paddyDetails_LL"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="fill_parent"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/PaddyType"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+
+                                <Spinner
+                                    android:layout_marginLeft="95dp"
+                                    android:entries="@array/Paddy_grade"
+                                    android:id="@+id/FR_paddyType_Sp"
+                                    android:layout_width="280dp"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/rectangular_et"
+                                    android:imeOptions="actionDone"
+                                    android:padding="5dp"
+                                    android:textSize="20sp" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="number"
+                                    android:maxLength="30"
+                                    android:padding="5dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textSize="20sp"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:visibility="gone">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.3"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/Quantity"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_AproxQty_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="numberDecimal"
+                                    android:maxLength="30"
+                                    android:padding="5dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:visibility="visible">
+
+                            <LinearLayout
+
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0">
+
+                                <com.cgg.pps.custom.CustomFontTextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="1.3"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="5dp"
+                                    android:paddingLeft="5dp"
+                                    android:text="@string/TokenNo"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <Spinner
+                                    android:id="@+id/FR_tokenNo_sp"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="number"
+                                    android:maxLength="30"
+                                    android:padding="5dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textSize="20sp" />
+
+                                <ImageView
+                                    android:id="@+id/token_refresh"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/dimen_8dp"
+                                    app:srcCompat="@drawable/refresh" />
+
+                                <com.cgg.pps.custom.CustomFontEditText
+                                    android:id="@+id/FR_tokenNo_Et"
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1.0"
+                                    android:background="@drawable/rectangular_et"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="number"
+                                    android:maxLength="30"
+                                    android:padding="5dp"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+                                    android:textSize="20sp"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/main_far_det"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/rounded_corner_frame"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="gone" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="5"
+                            app:srcCompat="@drawable/user_orange" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="90"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="@string/tokendetails"
+                            android:textColor="@color/headerTextColor"
+                            android:textSize="22dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/headerTextColor" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible" >
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0" >
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.3"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="@string/TokenNo_n"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/far_tokenNo_Tv"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0" >
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.3"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="@string/FarmerName_n"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/far_farmerName_Tv"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible" >
+
+
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0" >
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.3"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="@string/MobileNo_n"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/far_mobile_Tv"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0" >
+
+                            <TextView
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.3"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="@string/queuedate_n"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/far_app_Tv"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:layout_weight="1.0"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:textSize="20sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/main411"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/rounded_corner_frame"
+                    android:orientation="vertical"
+                    android:padding="2dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="5"
+                            app:srcCompat="@drawable/attachment" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="90"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:text="జతపరచవలసిన నకలు పత్రములు"
+                            android:textColor="@color/headerTextColor"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/white" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <CheckBox
+                            android:id="@+id/FR_BankPassBook_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:text="@string/BankPassBook"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="20dp"
+                            android:text="NOTE: Jandhan Yojana, Scholarship, Dorment Accounts are Not Acceptable"
+                            android:textColor="@color/red"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <CheckBox
+                            android:id="@+id/FR_PattadharPassBook_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/PattaBook"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <CheckBox
+                            android:id="@+id/FR_VROCertified_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:text="@string/VROCirtified"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/loginBtLL"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/FR_Submit_Btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1.0"
+                        android:background="@drawable/rounded_corner_button"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:padding="5dp"
+                        android:text="@string/submit"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</layout>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+    <SearchView
+        android:id="@+id/inputSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:drawableRight="@android:drawable/ic_menu_search"
+        android:gravity="center"
+        android:hint="Search by Mill ID or Code or Name or RO number"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingRight="10sp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/roRV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+
+</LinearLayout>

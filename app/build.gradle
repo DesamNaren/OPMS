@@ -1,0 +1,118 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
+
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    useLibrary 'org.apache.http.legacy'
+
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.cgg.pps"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 25 //--- It has to be 23
+        versionName "11.0"//-- It has to be 9.1
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("keyStore.jks")
+            storePassword "cggpps"
+            keyAlias "cgg"
+            keyPassword "cggpps"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "SERVER_NEW_URL", "\"https://wspps.cgg.gov.in/OPMSAPI/api/\"")
+            signingConfig signingConfigs.release
+            manifestPlaceholders = [crashlyticsEnabled: true]
+        }
+        debug {
+            buildConfigField("String", "SERVER_NEW_URL", "\"http://devopms.cgg.gov.in/OPMSAPI/api/\"")
+            signingConfig signingConfigs.release
+            ext.enableCrashlytics = false
+            manifestPlaceholders = [crashlyticsEnabled: false]
+        }
+
+        qa {
+            buildConfigField("String", "SERVER_NEW_URL", "\"http://wstestpps.cgg.gov.in/OPMSAPI/api/\"")
+            signingConfig signingConfigs.release
+            ext.enableCrashlytics = false
+            manifestPlaceholders = [crashlyticsEnabled: false]
+        }
+
+        uat {
+            buildConfigField("String", "SERVER_NEW_URL", "\"http://wsdemopps.cgg.gov.in/OPMSAPI/api/\"")
+            signingConfig signingConfigs.release
+            ext.enableCrashlytics = false
+            manifestPlaceholders = [crashlyticsEnabled: false]
+        }
+        stage {
+            buildConfigField("String", "SERVER_NEW_URL", "\"http://wsstagingpps.cgg.gov.in/OPMSAPI/api/\"")
+            signingConfig signingConfigs.release
+            ext.enableCrashlytics = false
+            manifestPlaceholders = [crashlyticsEnabled: false]
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    android {
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    Map<String, String> dependencies = rootProject.ext.dependencies
+    implementation dependencies.appCompat
+    implementation dependencies.support
+    implementation dependencies.supportV4
+    implementation dependencies.design
+    implementation dependencies.cardView
+    implementation dependencies.recyclerView
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitConverterGson
+    implementation dependencies.retrofitAdapterRxJava
+    implementation dependencies.rxAndroid
+    implementation dependencies.rxJava2
+    implementation dependencies.constraint
+    implementation dependencies.location
+    implementation dependencies.dexter
+    implementation dependencies.multidex
+    implementation dependencies.inetrceptor
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation dependencies.glide
+    implementation dependencies.room
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    annotationProcessor dependencies.roomCompiler
+    implementation dependencies.roomCompiler
+    implementation dependencies.roomRxJava2
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation dependencies.logging
+    implementation files('libs/Analogics2TProfessionalBTPrinterAPI.jar')
+    implementation files('libs/AnalogicsEncrypter.jar')
+    implementation dependencies.crashlytics
+    implementation dependencies.core
+    implementation dependencies.itext
+}

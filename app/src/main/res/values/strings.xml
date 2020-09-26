@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ధాన్యము సేకరణ</string>
+    <string name="action_settings">Settings</string>
+    <string name="Search">అన్వేషించు</string>
+    <string name="getDetails">వివరముల కొరకు</string>
+    <string name="updateDetails">నవీకరణ కొరకు</string>
+    <string name="SearchForFarmerDetails"> రైతు వివరముల మార్పులు / చేర్పులు  కొరకు </string>
+    <string name="SearchCriteria">వివరముల కొరకు</string>
+    <string name="DSOSearchCriteria">డి.ఎస్.ఓ ఆర్డర్స్  వివరముల కొరకు</string>
+    <string name="SearchWithName">రైతు పేరు / రైతు తండ్రి పేరు /ఫోన్ నంబరుతో అన్వేషణ</string>
+    <!--<string name="SearchWithIDNumber">ఆధార్/రైతు నమోదు నంబరుతో అన్వేషణ</string>-->
+    <string name="SearchWithIDNumber">ఆధార్ నంబరుతో అన్వేషణ</string>
+    <string name="SearchWithOrderIDNumber">ఆర్డర్ సంఖ్యతో అన్వేషణ</string>
+    <string name="str_timezone_alert">Please set your tab timezone correctly</string>
+    <string name="str_alert">Alert!!</string>
+    <string name="str_no_data_from_server">No data from server</string>
+    <string name="str_damaged_bags">పనికి రాని గోనె సంచులు:</string>
+    <string name="add_ro">దయచేసి మరొక ఆర్ఓ ని జోడించడానికి ఇక్కడ క్లిక్ చేయండి</string>
+    <string name="millAddress">మిల్లు చిరునామా</string>
+    <!-- farmer Details -->
+    <string name="Menu">కార్యక్రమాల పట్టిక</string>
+    <string name="FarmerRegistration">రైతు నమోదు</string>
+    <string name="nav_reports">సమాచార పట్టిక</string>
+    <string name="TokenGeneration">టోకెన్ నమోదు</string>
+    <string name="font_name_source_opensans">OpenSans</string>
+    <string name="FAQ">నాణ్యత పరిక్షించుట</string>
+    <string name="TextType">నాణ్యత పరిక్షించుట రకము</string>
+    <string name="PaddyProcurementdetails">ధాన్యము సేకరణ వివరాలు</string>
+    <string name="PaddyProcurement">ధాన్యము సేకరణ</string>
+    <!-- <string name="PPCtoMiller">పిపిసి నుండి మిల్లుకి</string> -->
+    <string name="PPCtoMiller">మిల్లుకు ధాన్యము  సరఫరా </string>
+    <string name="Reports">రైతు వ్యక్తిగత వివరాలు</string>
+    <string name="DataSync">సమాచారం సమకాలీకరణ</string>
+    <string name="GunnysGivenToFarmer">రైతుకు గోనె సంచుల  సరఫరా</string>
+    <string name="GunnyMgnt">గోనె సంచుల నిర్వహణ</string>
+    <string name="TransproterReg">వాహన నమోదు</string>
+    <string name="Printersetting">ప్రింటర్ సెట్టింగ్</string>
+    <string name="locationupdate">స్థాన నవీకరణ</string>
+
+    <!-- farmer Details -->
+    <string name="YealdPerAcers">ఎకరానికి దిగుబడి(క్వింటాల్లలో)</string>
+    <string name="LandOwnerDetails">భూమి యజమాని వివరాలు</string>
+    <string name="FarmerDetails">రైతు వ్యక్తిగత వివరాలు</string>
+    <string name="FarmerName">రైతు పేరు *</string>
+    <string name="FarmerName_n">రైతు పేరు</string>
+    <string name="OwnerName">యజమాని పేరు *</string>
+    <string name="DataSrc">Data src</string>
+    <string name="Identifier">Identifier</string>
+    <string name="OwnerAadhaar">యజమాని ఆధార్ నంబరు *</string>
+    <string name="aadharNo">ఆధార్ నంబరు *</string>
+    <string name="relation">బంధుత్వము *</string>
+    <string name="FatherName">తండ్రి/భర్త పేరు *</string>
+    <string name="Gender">పు/స్త్రీ</string>
+    <string name="Male">పురుషుడు</string>
+    <string name="Female">స్త్రీ</string>
+    <string name="District">జిల్లా *</string>
+    <string name="IsEnjoyer">భూమి యజమాని రకము*</string>
+    <string name="Age" translatable="false">వయస్సు</string>
+    <string name="Yes">అవును</string>
+    <string name="No">కాదు</string>
+    <string name="MobileNo">ఫోన్ నంబరు*</string>
+    <string name="MobileNo_n">ఫోన్ నంబరు</string>
+    <string name="Mandal">మండలం* </string>
+    <string name="RegistrationNo">రైతు నమోదు నంబరు </string>
+    <string name="TokenNo">టోకెన్ నంబరు*</string>
+    <string name="TokenNo_n">టోకెన్ నంబరు</string>
+    <string name="PinCode">పిన్ కోడ్</string>
+    <string name="Village">గ్రామము*</string>
+    <string name="Passbookno">పాసుపుస్తకము నంబరు*</string>
+    <string name="Landinacers">భూమి (ఎకరాల్లో)*</string>
+    <string name="Landinguntas">భూమి (గుంతలు)*</string>
+    <string name="Landtype">భూమి రకము*</string>
+    <string name="PattaNo">పట్టాదారు నంబరు</string>
+    <string name="khattaNo">ఖాతా నంబరు*</string>
+    <string name="SurveyNo">సర్వే నంబరు*</string>
+    <string name="SurveyNo_header">సర్వే నంబరు</string>
+    <string name="LandMark">సరిహద్దు గుర్తు</string>
+    <string name="LandDetails">భూమి వివరాలు</string>
+    <string name="EMail">ఇ-మెయిల్</string>
+    <string name="MillID">మిల్లు ఐడి</string>
+    <string name="RoID">ఆర్ఓ ఐడి</string>
+
+    <string name="token_issued">Tokens Issued</string>
+    <string name="farmers_registered">Farmers Registered</string>
+    <string name="farmers_registered_pending">Farmers Registered Pending</string>
+    <string name="faq_pending">FAQ Pending</string>
+    <string name="faq_rejected">FAQ Rejected</string>
+    <string name="faq_completed">FAQ Completed</string>
+    <string name="gunnies_issued">Gunnies Issued</string>
+    <string name="gunnies_pending">Gunnies Pending</string>
+    <string name="procurement_pending">Procurement Pending</string>
+    <string name="procurement_completed">Procurement Completed</string>
+    <string name="paddy_purchased">Paddy Purchased</string>
+    <string name="paddy_dispatched">Truck Chit Generated</string>
+    <string name="truckchit_total">Truck Chit Total Transactions</string>
+    <string name="truckchit_pending">Truck Chit Pending Transactions</string>
+    <string name="truckchit_completed">Truck Chit Completed</string>
+    <string name="partial_truckchit">Partial Truck Chit Transactions</string>
+    <string name="procurement_sync">Procurement Sync</string>
+    <string name="truckchit_sync">Truckchit Sync</string>
+
+    <string name="MillName"> మిల్లు పేరు</string>
+    <string name="DoorNo">ఇంటి  నంబరు</string>
+    <string name="PattaBook">పట్టాదారు పాసు పుస్తకము</string>
+    <string name="BankPassBook">బ్యాంక్ పాసు పుస్తకము</string>
+    <string name="VROCirtified">గ్రామ కార్యదర్శి(VRO) సర్టిఫికేట్</string>
+    <string name="tokendetails">టోకెన్   వివరాలు</string>
+    <string name="cultivatedLand">ధాన్యం సాగు చేసిన భూమి (ఎకరాల్లో)*</string>
+    <string name="cultivatedLand_header">ధాన్యం సాగు చేసిన భూమి</string>
+    <string name="cultivatedLand_header_total">మొత్తం ధాన్యం సాగు చేసిన భూమి</string>
+    <string name="cultivatedGuntas">ధాన్యం సాగు చేసిన భూమి (గుంతలు)*</string>
+    <string name="leasedExtent">కౌలుకు ఇచ్చిన భూమి (ఎకరాల్లో)*</string>
+    <string name="leasedGuntas">కౌలుకు ఇచ్చిన భూమి (గుంతలు)*</string>
+    <string name="already_leasedExtent">ఇప్పటికే కౌలుకు ఇచ్చిన భూమి (ఎకరాల్లో)</string>
+    <string name="already_leasedGuntas">ఇప్పటికే కౌలుకు ఇచ్చిన భూమి (గుంతలు)</string>
+    <string name="already_culExtent">ఇప్పటికే ధాన్యం సాగు చేసిన భూమి (ఎకరాల్లో)</string>
+    <string name="already_culGuntas">ఇప్పటికే ధాన్యం సాగు చేసిన భూమి (గుంతలు)</string>
+    <string name="queuedate">రైతు  రావాల్సిన తేది *</string>
+    <string name="queuedate_n">రైతు రావాల్సిన తేది </string>
+
+    <!-- bank details -->
+    <string name="BankDetails">బ్యాంక్ వివరాలు</string>
+    <string name="BankName"> బ్యాంక్ పేరు*</string>
+    <string name="BranchName">బ్రాంచ్ పేరు*</string>
+    <string name="IFSCCode">IFSC కోడ్*</string>
+    <string name="BankAccountNo">బ్యాంక్ ఖాతా నంబరు*</string>
+    <string name="BankAccountNo_reg">ఖాతా నంబరు*</string>
+    <string name="BankAccountNoCfm">బ్యాంక్ ఖాతా నంబరు ధృవపరచండి*</string>
+    <string name="AccountNo">ఖాతా నంబరు*</string>
+    <string name="AccountNoCfm">ఖాతా నంబరు ధృవపరచండి*</string>
+    <string name="BankAccountNoCfm_reg">ఖాతా నంబరు ధృవపరచండి*</string>
+    <!-- <string name="NameAsPerBank">బ్యాంక్ లొ  రైతు పేరు* బ్యాంక్ ప్రకారం రైతు పేరు</string> -->
+    <string name="NameAsPerBank">బ్యాంక్ ప్రకారం రైతు పేరు *</string>
+
+    <!-- Paddy Details -->
+    <string name="PaddyDetailsRegistration">ధాన్యం  వివరముల నమోదు</string>
+    <string name="PaddyDetails">ధాన్యం  వివరాలు</string>
+    <string name="PaddyType">ధాన్యం రకము *</string>
+    <string name="PaddyQuantity">ధాన్యము పరిమాణం (క్వింటాల్లలో)*</string>
+    <string name="Grade">రకము *</string>
+    <string name="GunnyBagsN">గోనె సంచులు(కొత్తవి)</string>
+    <string name="GunnyBagso">గోనె సంచులు(పాతవి)</string>
+    <string name="Quantity">పరిమాణం (క్వింటాల్లలో)*</string>
+    <string name="Quantity_header">పరిమాణం (క్వింటాల్లలో)</string>
+    <string name="Quantity_header_toal">మొత్తం పరిమాణం (క్వింటాల్లలో)</string>
+    <string name="pQuantity">పరిమాణం (క్వింటాల్లలో)</string>
+    <string name="NewBags">కొత్త సంచులు</string>
+    <string name="IssuedNewBags">ఇచ్చిన కొత్త సంచులు</string>
+    <string name="IssuedOldBags">ఇచ్చిన పాత సంచులు</string>
+    <string name="TotalBags">మొత్తం సంచులు </string>
+    <string name="OldBags">పాత సంచులు</string>
+    <string name="availNewBags">అందుబాటులో ఉన్న కొత్త సంచులు</string>
+    <string name="availOldBags">అందుబాటులో ఉన్న పాత సంచులు</string>
+    <string name="newbags_given_to_farmer">రైతు కి ఇచ్చిన కొత్త సంచులు</string>
+    <string name="oldbags_given_to_farmer">రైతు కి ఇచ్చిన పాత సంచులు</string>
+
+    <!-- Payment Details -->
+    <string name="PaymentDetails">నగదు వివరాలు</string>
+    <string name="TotalAmount">మొత్తం నగదు</string>
+    <string name="MSPAmount">ఎమ్.ఎస్.పి  నగదు</string>
+    <!-- ppc  Details  పిపిసి  వివరములు -->
+    <string name="operatername">   ఆపరేటర్  పేరు</string>
+    <string name="farmerscount">   రైతుల సంఖ్య</string>
+    <string name="totalpaddyquantity">మొత్తం ధాన్యము తీసుకున్నది(క్వింటాల్లలో)</string>
+
+    <!-- Gunnybags  Details రైతుల సంఖ్య పిపిసి  వివరములు -->
+
+    <string name="fil_new">వాడిన కొత్త గోనె సంచులు</string>
+    <string name="fil_old">వాడిన పాత గోనె సంచులు</string>
+    <string name="fil_tot">వాడిన మొత్తం గోనె సంచులు</string>
+
+    <string name="emp_new">తిరిగి ఇస్తున్న కొత్త సంచులు</string>
+    <string name="emp_old">తిరిగి ఇస్తున్న పాత సంచులు</string>
+    <string name="emp_tot">తిరిగి ఇస్తున్న మొత్తం సంచులు</string>
+
+    <string name="retNewBags">తిరిగి ఇస్తున్న కొత్త సంచులు</string>
+    <string name="retOldBags">తిరిగి ఇస్తున్న పాత సంచులు</string>
+    <string name="PPCGunnyBagsDetails">నిల్వ ఉన్న గోనెసంచుల వివరాలు</string>
+    <string name="GunnyBagsDetails">గోనెసంచుల వివరాలు</string>
+    <string name="PPCDetails"> పిపిసి  వివరములు</string>
+    <string name="vil_details"> గ్రామముల వివరములు</string>
+    <string name="PPCName">పిపిసి పేరు</string>
+    <string name="PPCId">పిపిసి ఐడి</string>
+    <string name="CreatedDate">రూపొందించబడింది తేదీ</string>
+    <string name="Print">ముద్రణ రసీదు</string>
+    <string name="TransId">లావాదేవీ ఐడి</string>
+    <string name="PaddyProcuredDate">ధాన్యం సేకరించిన తేదీ </string>
+    <string name="PaddyProcuredStatus">ధాన్యం సేకరణ  స్థితి</string>
+    <string name="OpeningBalance">ప్రారంభపు నిల్వలు</string>
+    <string name="ClosingBalance">ఆఖరి నిల్వలు</string>
+    <string name="Noofgunniesused">వాడిన గోనె సంచులు:</string>
+    <string name="ReceivedGunnyBagsfromDSO">డి.ఎస్.ఓ నుంచి స్వీకరించిన గోనె సంచులు వివరాలు</string>
+    <string name="Receivinggunnies">తీసుకుంటున్న గోనెసంచులు:</string>
+    <string name="NewHint">కొత్తవి</string>
+    <string name="OldHint">పాతవి</string>
+    <string name="TotalNOBags">మొత్తం గోనె సంచులు</string>
+    <string name="ReceivedGunnyBags">స్వీకరించిన గోనె సంచులు వివరాలు</string>
+    <string name="Receivedfrom">ఇచ్చిన వారు </string>
+    <string name="ReceivedfromName">గోనె సంచులు ఇచ్చినవారి పేరు</string>
+    <string name="maximumBagesGiveToFarmer">గరిష్టంగా రైతుకు ఇవాల్సిన  గోనెసంచులు</string>
+    <string name="totalGunnyBagesGivenToFarmer">రైతుకు ఇచ్చిన  మొత్తం గోనె సంచులు</string>
+    <string name="farmerReturnedGunnyBages">రైతు తిరిగి ఇచ్చిన  గోనెసంచులు </string>
+    <string name="operatoprPhoneNumber">ఆపరేటర్ ఫోన్ నం.</string>
+    <string name="ppcDetails">పిపిసి  వివరములు </string>
+    <string name="ppcName">పిపిసి  పేరు </string>
+    <string name="ppcId">పిపిసి ఐడి</string>
+    <string name="ppcOperatorName">ఆపరేటర్  పేరు</string>
+    <!-- FAQ Details -->
+
+    <string name="Parameter">సంబంధిత కొలత</string>
+    <string name="Max">గరిష్ఠ(%)</string>
+    <string name="Value">విలువ</string>
+    <string name="ValueCommon">సాధారణ రకం  విశ్లేషణ ఫలితాలు(%)</string>
+    <string name="ValueGardeA">గ్రేడ్  ఎ విశ్లేషణ ఫలితాలు(%)</string>
+    <string name="InorganicForeignMatter">వ్యర్ద పదార్ధములు (మట్టిరాళ్ళు, గడ్డలు)*</string>
+    <string name="OrganicForeignMatter">ఇతర గింజలు *</string>
+    <string name="ImmatureShrunkenandShrivelledGrains">పక్వానికి రాని, దెబ్బతిన్న, రంగు మారిన ధాన్యం*</string>
+    <string name="DamagedDiscolouredSproutedandWeevilledGrains">మొలకెత్తినవి, పురుగు తొలచినవి. మిశ్రమ మరియు తక్కువ గ్రేడ్ ధాన్యం*</string>
+    <string name="AdmixtureofLowerClass">దిగువ శ్రేణి మిశ్రమ ధాన్యం*</string>
+    <string name="MoistureContent">తేమ శాతం*</string>
+
+    <!-- Transporter Reg -->
+
+    <string name="DistanceFromPPCtoMill">పిపిసి నుండి  మిల్లుకు దూరం  </string>
+    <string name="vehicleDetails">వాహనం వివరాలు</string>
+    <string name="vehicleRegNo">వాహనం నమోదు సంఖ్య</string>
+    <string name="transportName">రవాణా పేరు</string>
+    <string name="transportDetails">రవాణా వివరాలు</string>
+    <string name="transportDate">రవాణా తేది</string>
+    <string name="transportId">రవాణా నమోదు సంఖ్య</string>
+    <string name="transporterName">రవాణాదారుని  పేరు</string>
+    <string name="streetName">వీధి పేరు</string>
+    <string name="vehicleType">వాహనం రకం</string>
+    <string name="vehicleownername">వాహన  యజమాని  పేరు  </string>
+
+    <string name="vehicleNo">వాహనం నంబరు</string>
+    <string name="OrderId">ఆర్డర్ నంబరు</string>
+    <string name="ManualGunnyOrderId">మాన్యువల్ గన్నీ ఆర్డర్ నంబరు</string>
+    <string name="vehicleCapacity">వాహన సామర్ద్యము</string>
+    <string name="driverName">డ్రైవర్  పేరు</string>
+    <string name="driverLicenceNo">డ్రైవర్  లైసెన్స్  నంబరు</string>
+    <string name="driverMobileNo">డ్రైవర్  ఫోన్ నంబరు</string>
+    <string name="manual_truck_num">మాన్యువల్ ట్రక్ షీట్ సంఖ్య   </string>
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Stock Management</item>
+        <item>Order Management</item>
+        <item>SubStockYard Order Management</item>
+        <!-- <item>DD Management</item> -->
+        <item>Track Order</item>
+        <item>Reports</item>
+        <item>Data Syn</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <!--<array name="nav_drawer_icons">-->
+    <!--<item>@drawable/ic_home</item>-->
+    <!--<item>@drawable/ic_people</item>-->
+    <!--<item>@drawable/ic_photos</item>-->
+    <!--<item>@drawable/ic_pages</item>-->
+    <!--<item>@drawable/ic_communities</item>-->
+    <!--<item>@drawable/ic_whats_hot</item>-->
+    <!--<item>@drawable/ic_communities</item>-->
+    <!--</array>-->
+
+    <string-array name="received_from">
+        <item>--Select--</item>
+        <item>ప్రభుత్వం</item>
+        <item>మిల్లు</item>
+        <item>మరొక పిపిసి </item>
+    </string-array>
+    <string-array name="farmer_natureT">
+        <item>--Select--</item>
+        <item>యజమాని</item>
+        <item>కౌలుదారు</item>
+        <item>హక్కుదారుడు</item>
+    </string-array>
+    <string-array name="farmer_nature">
+        <item>--Select--</item>
+        <item>Owner</item>
+        <item>Tenant</item>
+        <item>Legal Heir</item>
+    </string-array>
+    <string-array name="paddy_type">
+        <item>--Select--</item>
+        <item>Common</item>
+        <item>Boiled</item>
+    </string-array>
+    <string-array name="land_type">
+        <item>--Select--</item>
+        <item>మాగాణి /తరి </item>
+        <item>మెట్ట/కుష్కి</item>
+        <item>Both</item>
+    </string-array>
+    <string-array name="Paddy_grade">
+        <item>--Select--</item>
+        <item>గ్రేడ్ ఎ </item>
+        <item>సాధారణ</item>
+        <!--<item>గ్రేడ్ ఎ మరియు సాధారణ</item>-->
+    </string-array>
+    <string-array name="relation_types">
+        <item>--Select--</item>
+        <item>తండ్రి</item>
+        <item>తల్లి</item>
+        <item>సోదరుడు</item>
+        <item>సోదరి</item>
+        <item>భర్త</item>
+        <item>భార్య</item>
+        <item>కూతురు</item>
+        <item>కొడుకు</item>
+        <item>మనవడు</item>
+        <item>మనవరాలు</item>
+    </string-array>
+    <string-array name="FR_RegistratonType">
+        <item>ఆధార్ నంబరు </item>
+        <!--<item>రైతు నమోదు నంబరు</item>--> <!--Commented by Yamini on 03042017-->
+    </string-array>
+
+
+    <string-array name="Vehicle_type">
+        <item>--Select--</item>
+        <item>ట్రాక్టర్</item>
+        <item>లారీ</item>
+        <item>టిప్పర్</item>
+    </string-array>
+    <string-array name="Reports_type">
+        <item>::: SELECT REPORTS :::</item>
+        <item>FARMER REGISTRATION REPORT</item>
+        <item>TOKEN ISSUSED REPORT</item>
+        <item>PADDY PURCHASES REPORT</item>
+        <item>PADDY PAYMENT REPORT</item>
+        <item>PADDY DISPATCHES TO RICE MILLS REPORT</item>
+        <item>PADDY STOCK ACCOUNT REPORT</item>
+        <item>GUNNY STOCK ACCOUNT REPORT</item>
+        <item>GUNNY RECEIPT DETAILS REPORT</item>
+        <item>GRADE \'A\' PADDY ACCEPTANCES WITH REFRACTIONS REPORT</item>
+        <item>COMMON GRADE PADDY ACCEPTANCES WITH REFRACTIONS REPORT</item>
+        <item>PADDY REJECTIONS FOR NOT CONFIRMING TO PRESCRIBED SPECIFICATIONS REPORT</item>
+        <item>MILLER DETAILS REPORT</item>
+        <item>TRANSPORTER DETAILS REPORT</item>
+        <item>FARMER PAYMENT DETAILS REPORT</item>
+        <item>FARMER TOKEN STATUS REPORT</item>
+        <!--   <item>MANUAL ENTRY PADDYPROCUREMENT DETAILS REPORT</item> -->
+
+    </string-array>
+
+    <!--<item>ALLOTED RO WISE REPORT</item>-->
+    <string-array name="Reports_type_new">
+        <item>::: SELECT REPORTS :::</item>
+        <item>TOKEN WISE REPORT</item>
+        <item>FARMER PAYMENT STATUS REPORT</item>
+        <item>GUNNY ORDER REPORT</item>
+        <item>TRUCK CHIT TRANSACTION REPORT</item>
+        <item>TRANSACTION REPORT</item>
+        <item>MILL WISE QUANTITY REPORT</item>
+        <item>PADDY PAYMENT REPORT</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="tra_list">
+        <item>All</item>
+        <item>Pending at Miller</item>
+        <item>Pending at Truck chit</item>
+        <item>Pending at DM</item>
+        <item>Pending at Final Payment</item>
+        <item>DM Initialized</item>
+        <item>Sent to Bank</item>
+        <item>Paid</item>
+        <item>Rejected</item>
+    </string-array>
+
+    <string-array name="drp_dist">
+        <item>Warangal</item>
+        <item>Adilabad</item>
+        <item>Nizambad</item>
+        <item>Karimnagar</item>
+        <item>Medak</item>
+        <item>Ranga Reddy</item>
+        <item>Nalgonda</item>
+    </string-array>
+
+
+    <string-array name="drp_name">
+        <item>Praveen Kumar U</item>
+        <item>Ram Swamy></item>
+        <item>Sainath</item>
+        <item>Naresh</item>
+        <item>Ajay</item>
+        <item>Srikanth</item>
+        <item>Sathish</item>
+    </string-array>
+
+    <string-array name="drp_num">
+        <item>9700004929</item>
+        <item>9951250727</item>
+        <item>9704198519</item>
+        <item>9959657217</item>
+        <item>9492582466</item>
+        <item>8008011388</item>
+        <item>9959105516</item>
+    </string-array>
+
+    <string name="no_internet">నెట్‌వర్క్ అందుబాటులో లేదు. దయచేసి నెట్‌వర్క్‌కు కనెక్ట్ అవ్వండి మరియు మళ్లీ ప్రయత్నించండి!</string>
+    <string name="something">Something went wrong, Please try again</string>
+    <string name="something_loc">Something went wrong, Unable to get location</string>
+    <string name="rejected_faqs">తిరస్కరించబడిన టోకెన్లు</string>
+    <string name="title_activity_token_report">TokenReportActivity</string>
+    <string name="title_activity_dahboard">DahboardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="logout">లాగ్అవుట్</string>
+    <string name="home">హోమ్</string>
+    <string name="add_new_row">Add New Row</string>
+    <string name="land_det">భూమి వివరాలు</string>
+    <string name="sel">ఎంచుకొను</string>
+    <string name="added_certi">జతపరచవలసిన నకలు పత్రములు</string>
+    <string name="note_jandhan_yojana_scholarship_dorment_accounts_are_not_acceptable">
+        NOTE: Jandhan Yojana, Scholarship, Dorment Accounts are Not Acceptable</string>
+    <string name="submit">Submit</string>
+    <string name="Ok">Ok</string>
+    <string name="username">Username</string>
+    <string name="pasword">Password</string>
+    <string name="login">Login</string>
+    <string name="server_not">Server not responding, Please try later</string>
+    <string name="server_not_tel">సర్వర్ స్పందించడం లేదు, దయచేసి తరువాత ప్రయత్నించండి</string>
+    <string name="loc">Please grant location permission</string>
+    <string name="bank_branch"><![CDATA[Bank & Branch]]></string>
+    <string name="dmv"><![CDATA[District, Mandal & Village]]></string>
+    <string name="paddy_test">Paddy Test Values</string>
+    <string name="session_expire">Session expired!, Please re-login</string>
+    <string name="log_out">You are logged out from app</string>
+    <string name="no_land_records">No land records found, Do you want to update data?</string>
+    <string name="no_land_records_tel">భూమి రికార్డులు ఏవీ కనుగొనబడలేదు, మీరు డేటాను నవీకరించాలనుకుంటున్నారా?</string>
+
+    <string name="permissionText">As you use this app, Paddy Procurement System would like to serve you better. For this, we would like to read and use the following. </string>
+    <string name="runtimePermsiions">Runtime Permissions</string>
+    <string name="location">Location</string>
+    <string name="locationtxt">Collect and monitor information about the location of your device</string>
+    <string name="phone">Phone</string>
+    <string name="phonetxt">Collect and monitor specific information about your device including your unique device identifier to uniquely identify the devices and ensure that unauthorized devices to prevent frauds</string>
+    <string name="contacts">Contacts</string>
+    <string name="contactstxt">Collect contacts information to automatically detect reference information.</string>
+    <string name="camera">Camera</string>
+    <string name="cameratxt">Camera allowing you to capture pictures in the application</string>
+    <string name="storage">Storage</string>
+    <string name="storagetxt">Collect storage information to work with bluetooth inorder to store bluetooth address</string>
+    <string name="iaccept">I accept</string>
+    <string name="ideclined"><![CDATA[Declined & Proceed to Login]]></string>
+    <string name="social">Social Category</string>
+    <string name="social_status">సామాజిక స్థితి *</string>
+    <string name="total_land" />
+    <string name="drp">DRP Contacts</string>
+    <string name="INFORMATION">INFORMATION</string>
+    <string name="Information">Information!!</string>
+    <string name="SUCCESS">SUCCESS</string>
+    <string name="ERROR">ERROR</string>
+    <string name="WARNING">WARNING</string>
+    <string name="procurementConfirmation">Paddy Procurement Confirmation!!</string>
+    <string name="tcConfirmation">Truck chit Confirmation!!</string>
+    <string name="updationConfirmation">Farmer Updation Confirmation!!</string>
+    <string name="paddyConfirmation">Paddy Confirmation!!</string>
+    <string name="faqConfirmation">FAQ Confirmation!!</string>
+    <string name="paddy_type">వరి రకం</string>
+    <string name="confirmtoProceed">Are you sure to proceed?</string>
+    <string name="check">Verify</string>
+    <string name="Reprint">రీప్రింట్</string>
+    <string name="online">Truck Chit Number</string>
+    <string name="no_veh">No vehicle data found, Still do you want to proceed?</string>
+    <string name="no_veh_data">No vehicle data found</string>
+    <string name="no_tra_data">No transport data found</string>
+    <string name="no_master_veh_type_data">No master vehicle type data found</string>
+    <string name="no_veh_data_dow_tel">జాబితాలో వాహన సంఖ్య కనుగొనబడలేదు,
+        దయచేసి జాబితా చేయబడిన వాహనాల నుండి ఎంచుకోండి.
+        కనుగొనబడకపోతే డేటాను రిఫ్రెష్ చేయడానికి అవును క్లిక్ చేయండి</string>
+    <string name="no_veh_data_dow">Vehicle number not found in the list,Please select from listed vehicles.If not found click yes to refresh data</string>
+    <string name="no_vehc_data">No vehicles data found</string>
+    <string name="no_tra_data_dow">No Transporters found. Do you want to refresh data</string>
+    <string name="no_transa_data_dow">No Transactions found. Sorry, you cannot proceed with out transactions</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
+    <string name="print">Print</string>
+    <string name="print_alert">No printer connected, Do you want to configure it now?</string>
+    <string name="print_alert_tel">ప్రింటర్ కనెక్ట్ కాలేదు, మీరు దీన్ని ఇప్పుడు కాన్ఫిగర్ చేయాలనుకుంటున్నారా?</string>
+    <string name="print_alert_not">No printer connected</string>
+    <string name="never_ask_again">Never ask again!</string>
+    <string name="yes_connect">Yes, Connect</string>
+    <string name="not_now">Not, now</string>
+    <string name="Logout">Logout</string>
+    <string name="google_play">You don\'t have Google Play installed</string>
+    <string name="online_tc">ఆన్‌లైన్ ట్రక్ షీట్ సంఖ్య</string>
+    <string name="exit">Yes, Exit</string>
+    <string name="exit_no">No, Cancel</string>
+    <string name="exit_from">మీరు అప్లికేషన్ నుండి నిష్క్రమించాలనుకుంటున్నారా?</string>
+
+    <string name="plz_grant">Please grant required permissions</string>
+    <string name="paddy_acc">Paddy Acceptance Status!!</string>
+    <string name="valid_in_org">Enter Valid InOrganic Foreign Matter Percentage</string>
+    <string name="valid_org">Enter Valid Organic Foreign Matter Percentage</string>
+    <string name="valid_imm">Enter Valid Immattured Grains Percentage</string>
+    <string name="valid_damaged">Enter Valid Dammeged Grains Percentage</string>
+    <string name="valid_lower">Enter Valid Lower Class Grains Percentage</string>
+    <string name="valid_mos">Enter Valid Moisture Percentage</string>
+    <string name="paady_not_ret">Paddy type not retrieved</string>
+    <string name="paady_not_sel">Please Select the Paddy Type</string>
+    <string name="rej">Status: Rejected</string>
+    <string name="acc">Status: Acceptable</string>
+    <string name="remarks_entry">Please enter error remarks for Rejecting of the paddy</string>
+    <string name="gunny_cnf">Gunny given to farmer confirmation!!</string>
+    <string name="plz_delete">Please select the rows that you want to delete?</string>
+    <string name="no_data">No Data Available</string>
+    <string name="select_order">Please Select Order Id</string>
+    <string name="tot_bags_val">Total given Bags should be less than or equal to the maximum allocation bags</string>
+    <string name="enter_new_bags">Enter New Bags</string>
+    <string name="enter_old_bags">Enter Old Bags</string>
+    <string name="stock_inf">Stock Not Available, You have only</string>
+    <string name="ne_ba">New Bags.</string>
+    <string name="ol_ba">Old Bags.</string>
+    <string name="stock_valid">Stock not available Please enter valid details</string>
+    <string name="no_gunny">No gunny orders added.</string>
+    <string name="plz_submit_all">Please submit all gunny orders</string>
+    <string name="msp_empty">MSP amount is empty</string>
+    <string name="cannot_return_all">You cannot return complete given bags</string>
+    <string name="issued_mismatch">Total issued bags must equal to entered bags</string>
+    <string name="plz_take_reprint">Please take the print in Re-Print screen by configuring it in settings</string>
+    <string name="failed_proc">Failed to give procurement print</string>
+    <string name="verified">Verified</string>
+    <string name="verify">Verify</string>
+    <string name="enter_n_bags">Please enter new bags</string>
+    <string name="enter_valid_n_bags">Please enter valid new bags</string>
+    <string name="enter_o_bags">Please enter old bags</string>
+    <string name="enter_valid_o_bags">Please enter valid old bags</string>
+    <string name="enter_valid_bags">Please enter valid bags</string>
+    <string name="ro_exceed">Allotted RO capacity exceeded</string>
+    <string name="select_mill">Please Select Mill Name</string>
+    <string name="yes_refresh">Yes, Refresh</string>
+    <string name="failed_tc_print">Failed to give truck chit print</string>
+    <string name="man_req">Manual truck chit number required</string>
+    <string name="man_val">Manual Truck chit number should be minimum 2 characters</string>
+    <string name="man_zero_val">Manual truck chit number should not be zero</string>
+    <string name="cam_gra">Camera permission granted</string>
+    <string name="cam_den">Camera permission denied</string>
+    <string name="user_can">User cancelled image capture</string>
+    <string name="failed_cam">Sorry! Failed to capture image</string>
+    <string name="enter_veh_num">Enter Vehicle Number</string>
+    <string name="enter_valid_veh_num">Enter Valid Vehicle Number</string>
+    <string name="sel_tra">Select Transporter</string>
+    <string name="sel_veh_type">Select Vehicle Type</string>
+    <string name="enter_dri_name">Enter Driver Name</string>
+    <string name="enter_only_alph">ENTER ONLY ALPHABETICAL CHARACTER</string>
+    <string name="enter_mob_num">Enter Mobile Number</string>
+    <string name="enter_valid_mob">Enter Valid Mobile Number</string>
+    <string name="enter_lic_num">Enter License Number</string>
+    <string name="plz_take_man_slip">Please take manual truck slip image</string>
+    <string name="plz_chk_trn_rec">Please check transaction records to submit</string>
+    <string name="enter_tkn">Enter token number</string>
+    <string name="search_by_far">Search by Farmer name or Transaction ID</string>
+    <string name="search_by_order">Search by Order ID or Manual Truck Chit ID</string>
+    <string name="serarch_by_tc_id">Search by Truck Chit ID or Manual Truck Chit ID or Truck Chit No</string>
+    <string name="search_by_tkn_num">Search by Token No (or) Registration No (or) Farmer Name (or) Mobile</string>
+    <string name="bt_not">Bluetooth is not available</string>
+    <string name="bt_running">Bluetooth is currently in device discovery process.</string>
+    <string name="bt_enab">Bluetooth is Enabled.</string>
+    <string name="bt_not_ena">Bluetooth is NOT Enabled!</string>
+    <string name="download">Download</string>
+    <string name="re_download">Re-Download</string>
+    <string name="paddy_success">Paddy details downloaded successfully</string>
+    <string name="social_success">Social status details downloaded successfully</string>
+    <string name="bb_success">Bank and Branch details downloaded successfully</string>
+    <string name="transport_success">Transport details downloaded successfully</string>
+    <string name="dmv_success">District, Mandal and Village details downloaded successfully</string>
+    <string name="aad_req">Aadhaar number required</string>
+    <string name="val_aad_req">Valid aadhaar number required</string>
+    <string name="no_banks">No banks data found, Please download</string>
+    <string name="owner_aadhaar">Entered aadhaar number should not be farmer aadhaar number</string>
+    <string name="with_out_land">Are you sure you want to update with out land records?</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="are_you_sure_to_pr">Are you sure you want to proceed?</string>
+    <string name="no_districts">No districts data found, Please download</string>
+    <string name="no_mandals">No mandals data found, Please download</string>
+    <string name="no_villages">No villages data found, Please download</string>
+    <string name="no_social">No social status data found, Please download</string>
+    <string name="no_branches">No branches data found, Please download</string>
+    <string name="field_empty">Field can not be empty</string>
+    <string name="enter_farmer_name">Please enter farmer name</string>
+    <string name="valid_far_name">Please enter valid farmer name</string>
+    <string name="valid_aadhar">Please enter valid aadhaar number</string>
+    <string name="enter_far_name">Please Enter the farmer father name</string>
+    <string name="valid_name">Please enter valid name</string>
+    <string name="enter_mob">Please enter mobile number</string>
+    <string name="logout_alert">Are You sure you want to logout?</string>
+    <string name="re_print_alert">Are You sure you want redirect to Re-Print?</string>
+    <string name="re_ppc_alert">Do you want know PPC Details?</string>
+    <string name="sur_num">Please enter survey number</string>
+    <string name="sur_spl">Survey number should not contain special characters</string>
+    <string name="pass_num">Please enter passbook number</string>
+    <string name="valid_pass_num">Please enter valid passbook number</string>
+    <string name="enter_land_rec">Please enter land acres</string>
+    <string name="total_land_invalid">Total land in acres contains invalid characters</string>
+    <string name="land_sh_not_zero">Land acres should not be zero</string>
+    <string name="tot_bags_not_zero">Total bags should not be zero</string>
+
+    <string name="enter_trn_num">Please enter transaction number</string>
+    <string name="sel_copy_formats">Please select copy formats</string>
+    <string name="fail_paddy_print">Failed to give paddy print, Please try again</string>
+    <string name="enter_man_tc_num">Please enter manual truck chit number</string>
+    <string name="enter_online_tc_num">Please enter online truck chit number</string>
+    <string name="failed_token_tc">Failed to give token print, Please try again</string>
+    <string name="gunny_report">Gunny Wise Report</string>
+    <string name="all_per">Allow permission from settings</string>
+    <string name="all_per_cam">Allow camera permission from settings</string>
+    <string name="loc_sett">Location settings are inadequate, and cannot be fixed here. Fix in Settings.</string>
+    <string name="loc_stopped">Location updates stopped!</string>
+    <string name="allow_loc">Please allow location permission</string>
+    <string name="allow_cam">Please allow camera permission</string>
+    <string name="no_tokens">No tokens generated</string>
+    <string name="date_time">Turn on automatic date/time feature</string>
+    <string name="oldPwd">Old Password</string>
+    <string name="newPasword">New Password</string>
+    <string name="cnfNewPasword">Confirm Password</string>
+    <string name="update_text">Update</string>
+    <string name="old_pwd_tel">దయచేసి పాత పాస్‌వర్డ్‌ను నమోదు చేయండి</string>
+    <string name="enter_old_pwd_tel">దయచేసి సరైన పాత పాస్‌వర్డ్‌ను నమోదు చేయండి</string>
+    <string name="enter_new_tel">దయచేసి క్రొత్త పాస్‌వర్డ్‌ను నమోదు చేయండి</string>
+    <string name="diff_pwd_tel">దయచేసి వేరే పాస్‌వర్డ్‌ను నమోదు చేయండి</string>
+    <string name="re_new_pwd_tel">దయచేసి క్రొత్త పాస్‌వర్డ్‌ను తిరిగి నమోదు చేయండి</string>
+    <string name="pass_not_match_tel">నమోదు చేసిన పాస్‌వర్డ్‌లు సరిపోలేదు</string>
+    <string name="change_pwd_tel">పాస్వర్డ్ మార్చడానికి</string>
+    <string name="ro_info_tel">RO వివరాలు</string>
+    <string name="bt_saved_tel">బ్లూటూత్ చిరునామా విజయవంతంగా సేవ్ చేయబడింది</string>
+
+    <string name="old_pwd">Please Enter Old Password</string>
+    <string name="enter_old_pwd">Please Enter Correct Old Password</string>
+    <string name="enter_new">Please Enter New Password</string>
+    <string name="diff_pwd">Please Enter different Password</string>
+    <string name="re_new_pwd">Please Re-Enter New Password</string>
+    <string name="pass_not_match">Passwords entered didn\'t match</string>
+    <string name="change_pwd">Change Password</string>
+    <string name="ro_info">RO Info</string>
+    <string name="bt_saved">BLUETOOTH ADDRESS SAVED SUCCESSFULLY</string>
+    <string name="no_paddy">No paddy test data found, Please download</string>
+    <string name="sel_gen">Please select gender</string>
+    <string name="ent_val_mob">Please enter valid mobile number</string>
+    <string name="sel_dis">Please select district name</string>
+    <string name="sel_man">Please select mandal name</string>
+    <string name="sel_vil">Please select village name</string>
+    <string name="valid_pin">Please enter valid pin code</string>
+    <string name="sel_sta">Please select social status</string>
+    <string name="ent_bank">Please enter bank name</string>
+    <string name="ent_val_bank">Please enter valid bank name</string>
+    <string name="sel_bank_list">Select bank name from provided list only</string>
+    <string name="ent_bra">Please enter branch name</string>
+    <string name="ent_val_bra">Please enter valid branch name</string>
+    <string name="sel_bra_list">Select branch name from provided list only</string>
+    <string name="ent_ifsc">Please enter bank IFSC code</string>
+    <string name="name_as_per_bank">Please enter farmer name as per bank record</string>
+    <string name="far_name_bank">Farmer name must match with the name as per bank record</string>
+    <string name="only_alpha">Enter only alphabetical characters</string>
+    <string name="name_50">Name as per bank should not exceed 50 characters</string>
+    <string name="enter_bank_num">Please enter bank account number</string>
+    <string name="bank_not_zero">Bank account number should not be all zeros</string>
+    <string name="bank_35">Bank account number should not be greater than 35 characters</string>
+    <string name="cnf_bank">Please enter confirm bank account number</string>
+    <string name="bank_not_matc">Bank account numbers not matched</string>
+    <string name="sel_land_rec">Please select the land records that you want to submit</string>
+    <string name="sel_far">Please select farmer type</string>
+    <string name="ent_owner">Please enter the owner name</string>
+    <string name="val_aad_num">Please enter valid aadhaar number</string>
+    <string name="far_rel">Please select farmer relation type</string>
+    <string name="dist_land">Please select district name in land details</string>
+    <string name="sel_land_man">Please select mandal name in land details</string>
+    <string name="sel_land_vil">Please select village name in land details</string>
+
+
+
+
+    <string name="sel_land_type">Please select land type in land details</string>
+    <string name="ent_padd_ext">Please enter paddy lease extent</string>
+    <string name="leas_invalid">Leased land in acres contains invalid characters</string>
+    <string name="ent_cul_land">Please enter paddy cultivated extent</string>
+    <string name="cul_invalid">Cultivated land in acres contains invalid characters</string>
+    <string name="cul_0">Paddy cultivated extent should not be zero</string>
+    <string name="land_ext_not">Land in acres should not exceed total area</string>
+    <string name="no_land">No land records added.</string>
+    <string name="sel_paddy_det">Please select paddy details</string>
+    <string name="sel_pad_type">Please select paddy type</string>
+    <string name="sel_token_num">Please select token number</string>
+    <string name="far_as_per">Please enter farmer name as per token issued</string>
+    <string name="mob_as_per">Please enter mobile number as per token issued</string>
+
+
+
+    <string name="sub_pass">Please submit the bank passbook</string>
+    <string name="sub_patt">Please submit the pattadhar passbook</string>
+    <string name="sub_vro">Please submit the VRO certificate</string>
+    <string name="dup_order">Duplicate order ids selected.</string>
+
+
+    <string name="con_time_out">The Connection has timed out, Please try again</string>
+    <string name="io_exe">:IO Exception</string>
+    <string name="plz_ver_man">Please verify manual truck chit number</string>
+    <string name="thank_you">Thank you! Please pair printer from settings</string>
+    <string name="yes_logout">Yes, Logout</string>
+    <string name="yes_proceed">Yes, Proceed</string>
+    <string name="log_suc">You are logged out successfully!</string>
+    <string name="som_re">Unable to find PPC Details, Please re-login</string>
+    <string name="ses_expire_re">Session expired, Please Re-login</string>
+    <string name="DRP">DRP Contacts</string>
+    <string name="search_by_registration_id">Search by registration ID (or) transaction ID (or) farmer name (or) back acc no.</string>
+    <string name="far_name_required">Farmer name required</string>
+    <string name="far_mob_num_req">Farmer mobile number required</string>
+    <string name="valid_far_mob_num_req">Valid farmer mobile number required</string>
+    <string name="val_far_name">Please enter valid farmer name</string>
+    <string name="far_fat_name">Please Enter the farmer father name</string>
+    <string name="val_fat_name">Please enter valid father name</string>
+    <string name="app_qty_not_rec">Approximate quantity not retrieved</string>
+    <string name="sel_ord_to_submit">Select records to submit</string>
+    <string name="veh_num_emp">Vehicle number is empty</string>
+    <string name="trs_sel_emp">Transport selection empty</string>
+    <string name="trn_typ_emp">Transport types empty</string>
+    <string name="old_pwd_not_found">Old password not found</string>
+    <string name="plz_ent_user_name">Please enter User name</string>
+    <string name="val_user_name">Please enter valid User name</string>
+    <string name="plz_ent_pwd">Please enter password</string>
+
+</resources>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/FR_LandDetailsMain_Tr"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="S.No"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Aadhaar Number"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Farmer Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Bank Account No"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Name as per Bank"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Bank Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Branch Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Procured Date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Truck chit Date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Payment Date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Transaction ID"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="New Bags"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Old Bags"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Total Bags"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Grade A Quantity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Common Quantity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Total Quantity"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Total Amount"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/background_print"
+
+                android:padding="5dp"
+                android:scrollHorizontally="true"
+                android:text="Amount Transfer Status"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/pdf_color"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/det_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/sNoTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="S.No" />
+
+        <TextView
+            android:id="@+id/regNumTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Aadhaar Number" />
+
+        <TextView
+            android:id="@+id/farNameTv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Farmer Name" />
+
+        <TextView
+            android:id="@+id/bankAccNumTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Bank Account No" />
+
+        <TextView
+            android:id="@+id/nameAsTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Name as per Bank" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/bankNameTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Bank Name" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/branchNameTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Branch Name" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/prcDateTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Procured Date" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/tcDateTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Truck chit Date" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/paymentDateTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Payment Date" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/txnIDTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Transaction ID" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/newBagsTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="New Bags" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/oldBagsTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Old Bags" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/totBagsTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Total Bags" />
+
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/graAQty"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Grade A Quantity" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/comQtyTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Common Quantity" />
+
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/totQtyTv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Total Quantity" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/totAmtTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Total Amount" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/statusTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/background_print"
+            android:padding="5dp"
+            android:scrollHorizontally="true"
+            android:text="Amount Transfer Status" />
+    </LinearLayout>
+
+</LinearLayout>

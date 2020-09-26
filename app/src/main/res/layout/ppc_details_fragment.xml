@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/root_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dimen_8dp"
+                        android:text="@string/District"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dimen_8dp"
+                        android:text="@string/Mandal"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:padding="@dimen/dimen_8dp"
+                        android:text="@string/Village"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/sp_dist"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corner_et_disable"
+                        android:divider="@color/separator"
+                        android:dividerHeight="1.0dip"
+                        android:fadeScrollbars="true"
+                        android:fadingEdge="none"
+                        android:listSelector="@drawable/list_selector_flatcolor"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/sp_mandal"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corner_et_disable"
+                        android:divider="@color/separator"
+                        android:dividerHeight="1.0dip"
+                        android:fadeScrollbars="true"
+                        android:fadingEdge="none"
+                        android:listSelector="@drawable/list_selector_flatcolor"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/sp_village"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_corner_et_disable"
+                        android:divider="@color/separator"
+                        android:dividerHeight="1.0dip"
+                        android:fadeScrollbars="true"
+                        android:fadingEdge="none"
+                        android:listSelector="@drawable/list_selector_flatcolor"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+
+
+
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_below="@+id/root_layout"
+                android:id="@+id/ppcCV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="@dimen/dimen_8dp"
+                android:visibility="gone"
+                app:cardElevation="4dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:visibility="visible">
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:padding="@dimen/dimen_5dp"
+                        android:text="@string/ppcDetails"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ppcRV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:padding="@dimen/dimen_8dp" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_below="@+id/ppcCV"
+                android:id="@+id/vilCV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:padding="@dimen/dimen_8dp"
+                android:visibility="gone"
+                app:cardElevation="4dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:visibility="visible">
+
+                    <com.cgg.pps.custom.CustomFontTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:padding="@dimen/dimen_5dp"
+                        android:text="@string/vil_details"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/villageRV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:padding="@dimen/dimen_8dp" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+        <com.cgg.pps.custom.CustomFontTextView
+            android:layout_centerInParent="true"
+            android:id="@+id/emptyTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dimen_8dp"
+            android:text="@string/no_data"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</layout>

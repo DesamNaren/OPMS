@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.LoginActivity">
+
+    <RelativeLayout
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_page"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:background="@drawable/login_icon"
+                android:gravity="center"
+                android:text="@string/aadharNo"
+                android:textColor="@color/white" />
+
+            <com.cgg.pps.custom.CustomFontEditText
+                android:id="@+id/username"
+                android:layout_width="@dimen/dimen_250dp"
+                android:layout_height="@dimen/dimen_50dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:background="@drawable/btn_background"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/username"
+                android:imeOptions="actionNext"
+                android:inputType="textCapCharacters"
+                android:maxLength="9"
+                android:padding="3dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <com.cgg.pps.custom.CustomFontEditText
+                android:id="@+id/password"
+                android:layout_width="@dimen/dimen_250dp"
+                android:layout_height="@dimen/dimen_50dp"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:background="@drawable/btn_background"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/pasword"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="3dp"
+                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+
+            <com.cgg.pps.custom.CustomFontButtonView
+                android:id="@+id/loginBtn"
+                android:layout_width="@dimen/dimen_150dp"
+                android:layout_height="@dimen/dimen_50dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:background="@drawable/btn_background1"
+                android:gravity="center"
+                android:text="@string/submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+        <com.cgg.pps.custom.CustomFontTextView
+            android:padding="@dimen/dimen_4dp"
+            android:layout_marginRight="@dimen/dimen_4dp"
+            android:id="@+id/envTV"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/foo"
+            android:gravity="right"
+            android:textColor="#FFF" />
+
+        <LinearLayout
+            android:id="@+id/foo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/footer"
+            android:orientation="horizontal">
+
+            <com.cgg.pps.custom.CustomFontTextView
+                android:id="@+id/deviceId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="bottom"
+                android:paddingStart="@dimen/dimen_10dp"
+                android:paddingLeft="@dimen/dimen_10dp"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <com.cgg.pps.custom.CustomFontTextView
+                android:id="@+id/versionId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:gravity="bottom"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <com.cgg.pps.custom.CustomFontButtonView
+                android:id="@+id/drp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginLeft="@dimen/dimen_20dp"
+                android:layout_marginTop="2dp"
+                android:visibility="invisible"
+                android:background="@drawable/btn_background1"
+                android:drawableEnd="@drawable/right"
+                android:drawableRight="@drawable/right"
+                android:drawablePadding="@dimen/dimen_4dp"
+                android:padding="@dimen/dimen_8dp"
+                android:text="@string/drp"
+                android:textAllCaps="false"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</layout>

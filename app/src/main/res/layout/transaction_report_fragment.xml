@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.SearchView
+            android:background="@drawable/rounded_corner_frame"
+            android:id="@+id/inputSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:drawableRight="@android:drawable/ic_menu_search"
+            android:gravity="center"
+            android:hint="Search by Token No (or) Registration No (or) Farmer Name (or) Mobile"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingRight="10sp" />
+
+
+        <Spinner
+            android:layout_marginTop="6dp"
+            android:id="@+id/transSpinner"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:divider="@color/separator"
+            android:dividerHeight="1.0dip"
+            android:background="@drawable/rounded_corner_frame"
+            android:entries="@array/tra_list"
+            android:listSelector="@drawable/list_selector_flatcolor"
+            android:textSize="20sp" />
+        <View
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#CCC"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:background="@drawable/rounded_corner_frame"
+            android:padding="6dp"
+            android:id="@+id/transactionRV"
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+</layout>

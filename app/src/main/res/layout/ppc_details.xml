@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_20dp"
+    android:background="@drawable/rounded_corner_frame"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/closeIV"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_close_white"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="20dp" />
+                <com.cgg.pps.custom.CustomFontTextView
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="@string/ppcDetails"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:padding="@dimen/dimen_10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal">
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textStyle="bold"
+                            android:textColor="@color/mini_srd_bg1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.5"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/ppcName"
+                            android:textSize="20sp"
+                            android:paddingStart="5dp" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textColor="@color/mini_srd_bg1"
+                            android:id="@+id/homepage_userdetails_ppcNameTv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.0"
+                            android:gravity="center_vertical"
+                            android:paddingStart="5dp"
+                            android:paddingLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal">
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textStyle="bold"
+                            android:textColor="@color/mini_srd_bg1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.5"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/ppcId"
+                            android:textSize="20sp" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textColor="@color/mini_srd_bg1"
+                            android:id="@+id/homepage_userdetails_ppcIdTv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0"
+
+                            android:gravity="center_vertical"
+                            android:paddingStart="5dp"
+                            android:paddingLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal">
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textStyle="bold"
+                            android:textColor="@color/mini_srd_bg1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.5"
+                            android:gravity="center_vertical"
+                            android:padding="5dp"
+                            android:text="@string/ppcOperatorName"
+                            android:textSize="20sp" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textColor="@color/mini_srd_bg1"
+                            android:id="@+id/homepage_userdetails_ppcOparatorName_Tv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0"
+                            android:gravity="center_vertical"
+                            android:paddingStart="5dp"
+                            android:paddingLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textStyle="bold"
+                            android:textColor="@color/mini_srd_bg1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.5"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/operatoprPhoneNumber"
+                            android:textSize="20sp" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textColor="@color/mini_srd_bg1"
+                            android:id="@+id/homepage_userdetails_ppcOparatorMobile_Tv"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0"
+                            android:gravity="center_vertical"
+                            android:paddingStart="5dp"
+                            android:paddingLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textStyle="bold"
+                            android:textColor="@color/mini_srd_bg1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.5"
+
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/District"
+                            android:textSize="20sp" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textColor="@color/mini_srd_bg1"
+                            android:id="@+id/homepage_userdetails_district"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0"
+
+                            android:gravity="center_vertical"
+                            android:paddingStart="5dp"
+                            android:paddingLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textStyle="bold"
+                            android:textColor="@color/mini_srd_bg1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.5"
+
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/Mandal"
+                            android:textSize="20sp" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textColor="@color/mini_srd_bg1"
+                            android:id="@+id/homepage_userdetails_ppcmandal"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0"
+
+                            android:gravity="center_vertical"
+                            android:paddingStart="5dp"
+                            android:paddingLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textStyle="bold"
+                            android:textColor="@color/mini_srd_bg1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.5"
+
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:text="@string/Village"
+                            android:textSize="20sp" />
+
+                        <com.cgg.pps.custom.CustomFontTextView
+                            android:textColor="@color/mini_srd_bg1"
+                            android:id="@+id/homepage_userdetails_ppcvillage"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_weight="1.0"
+                            android:gravity="center_vertical"
+                            android:paddingStart="5dp"
+                            android:paddingLeft="5dp"
+                            android:textSize="18sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="1dp"
+                        android:orientation="horizontal"
+                        android:padding="5dp"
+                        android:visibility="visible">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1.0"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/homepage_userDetails_changePwdBtn"
+                                android:layout_width="fill_parent"
+                                android:layout_height="fill_parent"
+                                android:background="@drawable/rounded_corner_button"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:text="పాస్వర్డ్ మార్పునకు "
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

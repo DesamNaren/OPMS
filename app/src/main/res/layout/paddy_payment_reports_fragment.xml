@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/inputSearch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner_frame"
+            android:cursorVisible="false"
+            android:drawableRight="@android:drawable/ic_menu_search"
+            android:gravity="center"
+            android:hint="@string/search_by_registration_id"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingRight="10sp" />
+
+        <LinearLayout
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/fromDateLL"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.cgg.pps.custom.CustomFontTextView
+                    android:drawableRight="@android:drawable/ic_menu_my_calendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From Date" />
+
+                <com.cgg.pps.custom.CustomFontTextView
+                    android:id="@+id/fromDateTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+
+            <View
+                android:background="@color/cb_dark_gray"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:id="@+id/toDateLL"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.cgg.pps.custom.CustomFontTextView
+                    android:drawableRight="@android:drawable/ic_menu_my_calendar"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To Date" />
+
+                <com.cgg.pps.custom.CustomFontTextView
+                    android:id="@+id/toDateTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+
+
+
+            <Button
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:id="@+id/pdfGenerateBtn"
+                android:text="Generate PDF"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/paymentRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/rounded_corner_frame"
+            android:padding="6dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/paymentRV1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/rounded_corner_frame"
+            android:padding="6dp" />
+    </LinearLayout>
+</layout>
