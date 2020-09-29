@@ -43,7 +43,7 @@
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
                 android:inputType="textCapCharacters"
-                android:maxLength="9"
+                android:maxLength="10"
                 android:padding="3dp"
                 android:scrollHorizontally="true"
                 android:singleLine="true"

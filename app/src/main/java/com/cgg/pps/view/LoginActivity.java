@@ -3,34 +3,28 @@ package com.cgg.pps.view;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 
 import com.cgg.pps.BuildConfig;
 import com.cgg.pps.R;
 import com.cgg.pps.application.OPMSApplication;
 import com.cgg.pps.databinding.ActivityLoginBinding;
 import com.cgg.pps.interfaces.DMVDeleteInterface;
-import com.cgg.pps.interfaces.DMVInterface;
 import com.cgg.pps.interfaces.LoginInterface;
-import com.cgg.pps.interfaces.VehicleInterface;
 import com.cgg.pps.model.request.truckchit.vehicledetails.VehicleDetailsRequest;
 import com.cgg.pps.model.request.validateuser.login.ValidateUserRequest;
-import com.cgg.pps.model.response.truckchit.mastervehicle.VehicleDetails;
-import com.cgg.pps.model.response.truckchit.mastervehicle.VehicleResponse;
-import com.cgg.pps.model.response.truckchit.vehicle_type.TransporterVehicleType;
 import com.cgg.pps.model.response.validateuser.login.ValidateUserResponse;
 import com.cgg.pps.presenter.LoginPresenter;
 import com.cgg.pps.room.repository.DMVRepository;
@@ -42,13 +36,6 @@ import com.cgg.pps.util.Utils;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.gson.Gson;
-
-import java.util.List;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
 
 public class LoginActivity extends LocBaseActivity implements LoginInterface, DMVDeleteInterface {
     private ActivityLoginBinding binding;
@@ -261,7 +248,7 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
             return false;
         }
 
-        if (UserName.length() != 9) {
+        if (!(UserName.length() >= 9)) {
             binding.username.setError(getString(R.string.val_user_name));
             binding.username.requestFocus();
             return false;
