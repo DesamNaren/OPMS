@@ -55,6 +55,12 @@ public class ROInfoAdapter extends RecyclerView.Adapter<ROInfoAdapter.RejectionH
         try {
             DetailedRoInfoOutput detailedRoInfoOutput = roInfoResponse.getDetailedRoInfoOutput().get(position);
 
+            if(position==0){
+                holder.linearLayout.setVisibility(View.VISIBLE);
+            }else {
+                holder.linearLayout.setVisibility(View.GONE);
+            }
+
             holder.slNo.setText(String.valueOf(holder.getAdapterPosition() + 1));
             holder.date.setText(detailedRoInfoOutput.getModifiedDate());
 
@@ -83,6 +89,7 @@ public class ROInfoAdapter extends RecyclerView.Adapter<ROInfoAdapter.RejectionH
     class RejectionHolder extends RecyclerView.ViewHolder {
 
         private TextView slNo, date, qty, activity;
+        private LinearLayout linearLayout;
 
         RejectionHolder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +97,7 @@ public class ROInfoAdapter extends RecyclerView.Adapter<ROInfoAdapter.RejectionH
             activity = itemView.findViewById(R.id.activity);
             date = itemView.findViewById(R.id.date);
             qty = itemView.findViewById(R.id.qty);
+            linearLayout = itemView.findViewById(R.id.headLl);
         }
     }
 }

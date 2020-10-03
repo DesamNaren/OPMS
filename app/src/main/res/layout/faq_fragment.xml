@@ -745,7 +745,7 @@
                                 android:layout_gravity="center"
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -767,7 +767,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -819,7 +819,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -840,7 +840,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -893,7 +893,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -914,7 +914,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -966,7 +966,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -987,7 +987,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -1041,7 +1041,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"
@@ -1062,7 +1062,7 @@
                                 android:background="@drawable/rectangular_et"
                                 android:ems="5"
                                 android:gravity="center_vertical"
-                                android:imeOptions="actionDone"
+                                android:imeOptions="actionNext"
                                 android:inputType="numberDecimal"
                                 
                                 android:padding="5dp"

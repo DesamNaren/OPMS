@@ -9,6 +9,8 @@
 
 
     <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/headLl"
         android:padding="@dimen/dimen_5dp"
         android:background="@drawable/rounded_corner_button"
         android:layout_width="match_parent"

@@ -117,99 +117,104 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1.0"
-                        android:visibility="visible">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="fill_parent"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="5dp"
-                            android:text="@string/manual_truck_num"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:layout_weight="1.0"
+                            android:visibility="visible">
 
-                        <EditText
-                            android:id="@+id/manual_tc_no_bfr"
-                            android:layout_width="200dp"
-                            android:layout_height="fill_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/dimen_10dp"
-                            android:background="@drawable/rectangular_et"
-                            android:digits="1234567890"
-                            android:imeOptions="actionDone"
-                            android:inputType="number"
-                            android:maxLength="8"
-                            android:padding="5dp"
-                            android:singleLine="true"
-                            android:textSize="20sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text="@string/manual_truck_num"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/slashTV"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dimen_10dp"
-                            android:layout_marginBottom="4dp"
-                            android:gravity="center|center_horizontal"
-                            android:text="/"
-                            android:textSize="36sp"
-                            android:textStyle="bold" />
+                            <EditText
+                                android:id="@+id/manual_tc_no_bfr"
+                                android:layout_width="200dp"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:background="@drawable/rectangular_et"
+                                android:digits="1234567890"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLength="8"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/slashTV"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:layout_marginBottom="4dp"
+                                android:gravity="center|center_horizontal"
+                                android:text="/"
+                                android:textSize="36sp"
+                                android:textStyle="bold" />
 
 
-                        <EditText
-                            android:id="@+id/manual_tc_no_aft"
-                            android:layout_width="200dp"
-                            android:layout_height="fill_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/dimen_10dp"
-                            android:background="@drawable/rectangular_et"
-                            android:digits="1234567890"
-                            android:imeOptions="actionDone"
-                            android:inputType="number"
-                            android:maxLength="1"
-                            android:padding="5dp"
-                            android:singleLine="true"
-                            android:textSize="20sp" />
+                            <EditText
+                                android:id="@+id/manual_tc_no_aft"
+                                android:layout_width="200dp"
+                                android:layout_height="fill_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="@dimen/dimen_10dp"
+                                android:background="@drawable/rectangular_et"
+                                android:digits="1234567890"
+                                android:imeOptions="actionDone"
+                                android:inputType="number"
+                                android:maxLength="1"
+                                android:padding="5dp"
+                                android:singleLine="true"
+                                android:textSize="20sp" />
 
-                        <Button
-                            android:id="@+id/man_check_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/rounded_corner_button"
-                            android:padding="@dimen/dimen_10dp"
-                            android:text="@string/check"
-                            android:textColor="@color/white" />
+                            <Button
+                                android:id="@+id/man_check_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/rounded_corner_button"
+                                android:padding="@dimen/dimen_10dp"
+                                android:text="@string/check"
+                                android:textColor="@color/white" />
 
-                        <Button
-                            android:id="@+id/man_edit_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/rounded_corner_button"
-                            android:padding="@dimen/dimen_10dp"
-                            android:text="@string/edit"
-                            android:textColor="@color/white"
-                            android:visibility="gone" />
-                    </LinearLayout>
-
+                            <Button
+                                android:id="@+id/man_edit_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/rounded_corner_button"
+                                android:padding="@dimen/dimen_10dp"
+                                android:text="@string/edit"
+                                android:textColor="@color/white"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
                 </LinearLayout>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/tc_layout"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
                 <LinearLayout
@@ -426,11 +431,11 @@
 
                             <ImageView
                                 android:id="@+id/ro_Info"
-                                android:layout_gravity="center"
-                                android:src="@android:drawable/ic_menu_info_details"
                                 android:layout_width="@dimen/dimen_30dp"
                                 android:layout_height="@dimen/dimen_30dp"
-                                android:layout_margin="@dimen/dimen_4dp"/>
+                                android:layout_gravity="center"
+                                android:layout_margin="@dimen/dimen_4dp"
+                                android:src="@android:drawable/ic_menu_info_details" />
 
 
                         </LinearLayout>
@@ -599,6 +604,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
+
                             <Spinner
                                 android:id="@+id/PPCtoMiller_TransporterName_Sp"
                                 android:layout_width="fill_parent"
@@ -641,16 +647,16 @@
                                 android:textStyle="bold" />
 
                             <AutoCompleteTextView
-                                android:maxLength="10"
-                                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
-                                android:enabled="false"
                                 android:id="@+id/PPCtoMiller_vehicleNo_ATv"
                                 android:layout_width="fill_parent"
                                 android:layout_height="fill_parent"
                                 android:layout_weight="1.0"
                                 android:background="@drawable/rectangular_et"
+                                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+                                android:enabled="false"
                                 android:gravity="center_vertical"
                                 android:imeOptions="actionDone"
+                                android:maxLength="10"
                                 android:padding="5dp"
                                 android:singleLine="true"
                                 android:textSize="20sp" />
@@ -685,12 +691,12 @@
                                 android:singleLine="true"
                                 android:textSize="20sp" />
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/PPCtoMiller_VehicleType_Sp"-->
-<!--                                android:layout_width="fill_parent"-->
-<!--                                android:layout_height="fill_parent"-->
-<!--                                android:layout_weight="1.0"-->
-<!--                                android:textSize="20sp" />-->
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/PPCtoMiller_VehicleType_Sp"-->
+                            <!--                                android:layout_width="fill_parent"-->
+                            <!--                                android:layout_height="fill_parent"-->
+                            <!--                                android:layout_weight="1.0"-->
+                            <!--                                android:textSize="20sp" />-->
                         </LinearLayout>
 
                     </LinearLayout>

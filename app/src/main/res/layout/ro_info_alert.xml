@@ -1,239 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/rounded_corner_frame"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corner_frame"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/head"
-        android:padding="@dimen/dimen_10dp"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <ImageView
-        android:layout_marginLeft="@dimen/dimen_4dp"
-        android:id="@+id/closeIV"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:layout_width="@dimen/dimen_30dp"
-        android:layout_height="@dimen/dimen_30dp"
-        android:layout_marginStart="@dimen/dimen_4dp" />
-
-    <TextView
-        android:gravity="center"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:id="@+id/alert_titleTv"
-        android:layout_width="0dp"
-        android:textSize="22sp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-    </LinearLayout>
-    <View
-        android:id="@+id/id1"
-        android:layout_below="@+id/head"
-        android:background="#CCC"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-
-    <LinearLayout
-
-        android:layout_below="@+id/id1"
-        android:visibility="visible"
-        android:id="@+id/header_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_frame"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/dimen_10dp">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/closeIV"
+                android:layout_width="@dimen/dimen_30dp"
+                android:layout_height="@dimen/dimen_30dp"
+                android:layout_marginStart="@dimen/dimen_4dp"
+                android:layout_marginLeft="@dimen/dimen_4dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+            <TextView
+                android:id="@+id/alert_titleTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/dimen_8dp">
+                android:gravity="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="22sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Mill Name:" />
-
-                <TextView
-                    android:id="@+id/millNameTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_8dp"
-                android:layout_weight="1"
-                android:padding="@dimen/dimen_8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Mill Code:" />
-
-                <TextView
-                    android:id="@+id/millCodeTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:id="@+id/id1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/head"
+            android:background="#CCC" />
 
         <LinearLayout
+            android:id="@+id/header_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_below="@+id/id1"
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/dimen_8dp">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="PPC Name:" />
+                    android:padding="@dimen/dimen_8dp">
 
-                <TextView
-                    android:id="@+id/ppcNameTV"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mill Name:" />
+
+                    <TextView
+                        android:id="@+id/millNameTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_marginLeft="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dimen_8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mill Code:" />
+
+                    <TextView
+                        android:id="@+id/millCodeTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_8dp"
-                android:layout_weight="1"
-                android:padding="@dimen/dimen_8dp">
 
-                <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="PPC Code:" />
+                    android:padding="@dimen/dimen_8dp">
 
-                <TextView
-                    android:id="@+id/ppcCodeTv"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="PPC Name:" />
+
+                    <TextView
+                        android:id="@+id/ppcNameTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </LinearLayout>
+                    android:layout_marginLeft="@dimen/dimen_8dp"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dimen_8dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="PPC Code:" />
+
+                    <TextView
+                        android:id="@+id/ppcCodeTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/dimen_8dp">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="RO Number:" />
+                    android:padding="@dimen/dimen_8dp">
 
-                <TextView
-                    android:id="@+id/roNumTV"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="RO Number:" />
+
+                    <TextView
+                        android:id="@+id/roNumTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dimen_8dp"
-                android:layout_weight="1"
-                android:padding="@dimen/dimen_8dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_8dp"
                     android:layout_weight="1"
-                    android:text="Allotted Qty:" />
+                    android:padding="@dimen/dimen_8dp">
 
-                <TextView
-                    android:id="@+id/alloQtyTV"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Allotted Qty:" />
+
+                    <TextView
+                        android:id="@+id/alloQtyTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_8dp">
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="RO Allotted Date:" />
+                    android:padding="@dimen/dimen_8dp">
 
-                <TextView
-                    android:layout_marginLeft="16dp"
-                    android:id="@+id/roAloDateTv"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RO Allotted Date:" />
+
+                    <TextView
+                        android:id="@+id/roAloDateTv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+
             </LinearLayout>
-
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <View
-        android:id="@+id/id2"
-        android:layout_below="@+id/header_layout"
-        android:background="#CCC"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        <View
+            android:id="@+id/id2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/header_layout"
+            android:background="#CCC" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/id2"
-        android:padding="@dimen/dimen_8dp"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        android:id="@+id/rvInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/id2"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:padding="@dimen/dimen_8dp" />
 
-    <View
-        android:layout_below="@+id/rvInfo"
-        android:layout_marginTop="10dp"
-        android:background="#CCC"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rvInfo"
+            android:layout_marginTop="10dp"
+            android:background="#CCC" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

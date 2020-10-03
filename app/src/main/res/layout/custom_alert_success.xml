@@ -5,14 +5,16 @@
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:orientation="vertical">
-
+    <ScrollView
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/dialog_body"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="150dp"
         android:background="@drawable/dialog_round">
 
         <TextView
@@ -59,7 +61,7 @@
             android:visibility="visible" />
 
     </RelativeLayout>
-
+    </ScrollView>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
