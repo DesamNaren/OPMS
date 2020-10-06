@@ -18,6 +18,7 @@ import com.cgg.pps.model.request.gunnydetails.GunnyDetailsRequest;
 import com.cgg.pps.model.request.gunnydetails.GunnysSubmitRequest;
 import com.cgg.pps.model.request.ppc_details.MappedPPCDetailsRequest;
 import com.cgg.pps.model.request.procurement.IssuedGunnyDataRequest;
+import com.cgg.pps.model.request.procurement.PaddyOTPRequest;
 import com.cgg.pps.model.request.rejectedtokenrequest.RejectedTokenRequest;
 import com.cgg.pps.model.request.reports.CommonReportRequest;
 import com.cgg.pps.model.request.reports.PaymentInfoRequest;
@@ -54,6 +55,7 @@ import com.cgg.pps.model.response.gunnydetails.gunnysubmit.GunnySubmitResponse;
 import com.cgg.pps.model.response.ppc_details.MappedPPCDetailsResponse;
 import com.cgg.pps.model.response.procurement.IssuedGunnyDataResponse;
 import com.cgg.pps.model.request.procurement.PaddyProcurementSubmit;
+import com.cgg.pps.model.response.procurement.OTPResponse;
 import com.cgg.pps.model.response.procurement.ProcurementSubmitResponse;
 import com.cgg.pps.model.response.rejectedtokenresponse.RejectedTokenResponse;
 import com.cgg.pps.model.response.report.payment.ReportsDataResponce;
@@ -329,6 +331,9 @@ public interface OPMSService {
 
     @POST("Report/GetPaddyPaymentReport")
     Observable<PaddyPaymentInfoResponse> GetPaddyPaymentResponse(@Body PaymentInfoRequest paymentInfoRequest);
+
+    @POST("MasterData/GetMobileOtp")
+    Observable<OTPResponse> GetPaddyOTPtResponse(@Body PaddyOTPRequest paddyOTPRequest);
 
 }
 

@@ -6,10 +6,12 @@ import com.cgg.pps.base.BasePresenter;
 import com.cgg.pps.interfaces.PaddyProcurementInterface;
 import com.cgg.pps.model.request.farmer.gettokens.GetTokensRequest;
 import com.cgg.pps.model.request.procurement.IssuedGunnyDataRequest;
+import com.cgg.pps.model.request.procurement.PaddyOTPRequest;
 import com.cgg.pps.model.response.farmer.getfarmertokens.GetTokensDDLResponse;
 import com.cgg.pps.model.response.farmer.getfarmertokens.GetTokensResponse;
 import com.cgg.pps.model.response.procurement.IssuedGunnyDataResponse;
 import com.cgg.pps.model.request.procurement.PaddyProcurementSubmit;
+import com.cgg.pps.model.response.procurement.OTPResponse;
 import com.cgg.pps.model.response.procurement.ProcurementSubmitResponse;
 import com.cgg.pps.network.OPMSService;
 import com.cgg.pps.util.AppConstants;
@@ -33,6 +35,7 @@ public class PaddyProcurementPresenter implements BasePresenter<PaddyProcurement
     private GetTokensDDLResponse getTokensDDLResponse;
     private IssuedGunnyDataResponse issuedGunnyDataResponse;
     ProcurementSubmitResponse procurementSubmitResponse;
+    OTPResponse otpResponse;
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
@@ -151,6 +154,41 @@ public class PaddyProcurementPresenter implements BasePresenter<PaddyProcurement
         }
     }
 
+    public void PaddyProcurementOTP(PaddyProcurementSubmit paddyProcurementSubmit, PaddyOTPRequest paddyOTPRequest) {
+        try {
+            OPMSApplication application = OPMSApplication.get(paddyProcurementInterface.getContext());
+            OPMSService gitHubService = application.getDBService();
+
+            gitHubService.GetPaddyOTPtResponse(paddyOTPRequest)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Observer<OTPResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            disposable.add(d);
+                        }
+
+                        @Override
+                        public void onNext(OTPResponse otpResponse) {
+                            PaddyProcurementPresenter.this.otpResponse = otpResponse;
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            String msg = handleError(e);
+                            paddyProcurementInterface.onError(AppConstants.ERROR_CODE, msg);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            paddyProcurementInterface.PaddyProcurementOTP(paddyProcurementSubmit, otpResponse);
+                        }
+                    });
+
+        } catch (Exception e) {
+            handleException(e);
+        }
+    }
 
     public void PaddyProcurementSubmit(PaddyProcurementSubmit paddyProcurementSubmit) {
         try {

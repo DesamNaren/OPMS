@@ -37,6 +37,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.analogics.thermalAPI.Bluetooth_Printer_2inch_ThermalAPI;
 import com.cgg.pps.R;
 import com.cgg.pps.application.OPMSApplication;
+import com.cgg.pps.custom.CustomFontEditText;
+import com.cgg.pps.custom.CustomFontTextView;
 import com.cgg.pps.databinding.PaddyProcurementFragmentBinding;
 import com.cgg.pps.interfaces.BBInterface;
 import com.cgg.pps.interfaces.DMVInterface;
@@ -46,6 +48,7 @@ import com.cgg.pps.interfaces.RePrintInterface;
 import com.cgg.pps.model.request.ProRePrintRequest;
 import com.cgg.pps.model.request.farmer.gettokens.GetTokensRequest;
 import com.cgg.pps.model.request.procurement.IssuedGunnyDataRequest;
+import com.cgg.pps.model.request.procurement.PaddyOTPRequest;
 import com.cgg.pps.model.request.procurement.PaddyProcOrderXMLData;
 import com.cgg.pps.model.request.procurement.PaddyProcurementSubmit;
 import com.cgg.pps.model.request.procurement.PaddyXMLData;
@@ -60,6 +63,7 @@ import com.cgg.pps.model.response.farmer.getfarmertokens.GetTokensDDLResponse;
 import com.cgg.pps.model.response.farmer.getfarmertokens.GetTokensResponse;
 import com.cgg.pps.model.response.procurement.IssuedGunnyDataResponse;
 import com.cgg.pps.model.response.procurement.IssuedGunnyResponse;
+import com.cgg.pps.model.response.procurement.OTPResponse;
 import com.cgg.pps.model.response.procurement.PaddyOrderResponse;
 import com.cgg.pps.model.response.procurement.ProcurementSubmitResponse;
 import com.cgg.pps.model.response.reprint.ProcRePrintResponse;
@@ -83,7 +87,6 @@ import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -431,19 +434,96 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
                         public void onClick(View v) {
                             if (dialog.isShowing())
                                 dialog.dismiss();
-                            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
-                                if (customProgressDialog != null && !customProgressDialog.isShowing())
-                                    customProgressDialog.show();
-                                paddyProcurementPresenter.PaddyProcurementSubmit(paddySubmitRequest);
+
+                            if ("login_otp".contains("true")) {
+                                PaddyOTPRequest request = new PaddyOTPRequest();
+                                request.setpPCID(String.valueOf(ppcUserDetails.getPPCID()));
+                                request.setTokenNo(getTokenOutputMain.getTokenNo());
+                                request.setMobileNo(getTokenOutputMain.getMobile());
+                                GetOTPRequest(paddySubmitRequest, request);
                             } else {
-                                Utils.customAlert(getActivity(),
-                                        getResources().getString(R.string.PaddyProcurementdetails),
-                                        getResources().getString(R.string.no_internet),
-                                        getResources().getString(R.string.WARNING), false);
+                                if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                                    if (customProgressDialog != null && !customProgressDialog.isShowing())
+                                        customProgressDialog.show();
+                                    paddyProcurementPresenter.PaddyProcurementSubmit(paddySubmitRequest);
+                                } else {
+                                    Utils.customAlert(getActivity(),
+                                            getResources().getString(R.string.PaddyProcurementdetails),
+                                            getResources().getString(R.string.no_internet),
+                                            getResources().getString(R.string.WARNING), false);
+                                }
                             }
                         }
                     });
                     cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (dialog.isShowing())
+                                dialog.dismiss();
+                        }
+                    });
+                }
+            }
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showOTPAlert(PaddyProcurementSubmit paddySubmitRequest, String otpValue) {
+        try {
+            if (getActivity() != null) {
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                if (dialog.getWindow() != null) {
+                    dialog.getWindow().getAttributes().windowAnimations = R.style.exitdialog_animation1;
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    dialog.setContentView(R.layout.paddy_otp_alert);
+                    dialog.setCancelable(false);
+                    if (!dialog.isShowing())
+                        dialog.show();
+                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    Button verifyBtn = dialog.findViewById(R.id.verifyBtn);
+                    Button btnCancel = dialog.findViewById(R.id.btnCancel);
+                    CustomFontEditText otpEt = dialog.findViewById(R.id.otpEt);
+                    CustomFontTextView resendTv = dialog.findViewById(R.id.resendTv);
+
+                    resendTv.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+
+                    verifyBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String otp = "";
+                            if (otpEt.getText() != null) {
+                                otp = otpEt.getText().toString();
+                            }
+                            if (!TextUtils.isEmpty(otp) && otp.length() != 6) {
+                                otpEt.setError(getString(R.string.six_digit_otp));
+                                otpEt.requestFocus();
+                            } else if (!otp.equalsIgnoreCase(otpValue)) {
+                                otpEt.setError(getString(R.string.invalid_otp));
+                                otpEt.requestFocus();
+                            } else {
+                                if (dialog.isShowing())
+                                    dialog.dismiss();
+                                if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                                    if (customProgressDialog != null && !customProgressDialog.isShowing())
+                                        customProgressDialog.show();
+                                    paddyProcurementPresenter.PaddyProcurementSubmit(paddySubmitRequest);
+                                } else {
+                                    Utils.customAlert(getActivity(),
+                                            getResources().getString(R.string.PaddyProcurementdetails),
+                                            getResources().getString(R.string.no_internet),
+                                            getResources().getString(R.string.WARNING), false);
+                                }
+                            }
+                        }
+                    });
+                    btnCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if (dialog.isShowing())
@@ -748,6 +828,20 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
         paddyProcurementPresenter.GetIssuedGunnyDataResponseData(issuedGunnyDataRequest);
     }
 
+    private void GetOTPRequest(PaddyProcurementSubmit paddyProcurementSubmit, PaddyOTPRequest paddyOTPRequest) {
+        if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+            if (customProgressDialog != null)
+                customProgressDialog.show();
+            paddyProcurementPresenter.PaddyProcurementOTP(paddyProcurementSubmit, paddyOTPRequest);
+        } else {
+            Utils.customAlert(getActivity(),
+                    getResources().getString(R.string.PaddyProcurementdetails),
+                    getResources().getString(R.string.no_internet),
+                    getResources().getString(R.string.WARNING), false);
+        }
+    }
+
+
     @Override
     public void GetIssuedGunnyDataResponseData(IssuedGunnyDataResponse issuedGunnyDataResponse) {
         try {
@@ -838,6 +932,52 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
             } else if (procurementSubmitResponse != null &&
                     procurementSubmitResponse.getStatusCode() == AppConstants.VERSION_CODE) {
                 Utils.callPlayAlert(procurementSubmitResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+
+            } else {
+                Utils.customAlert(getActivity(),
+                        getResources().getString(R.string.PaddyProcurement),
+                        getResources().getString(R.string.server_not),
+                        getString(R.string.ERROR), false);
+            }
+        } catch (Resources.NotFoundException e) {
+            Utils.customAlert(getActivity(),
+                    getResources().getString(R.string.PaddyProcurement),
+                    getResources().getString(R.string.something),
+                    getString(R.string.ERROR), false);
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void PaddyProcurementOTP(PaddyProcurementSubmit paddyProcurementSubmit, OTPResponse otpResponse) {
+
+        if (customProgressDialog != null && customProgressDialog.isShowing())
+            customProgressDialog.dismiss();
+        try {
+            if (otpResponse != null && otpResponse.getStatusCode()
+                    == AppConstants.SUCCESS_CODE) {
+                if (!TextUtils.isEmpty(otpResponse.getOtp())) {
+                    showOTPAlert(paddyProcurementSubmit, otpResponse.getOtp());
+                } else {
+                    Utils.customAlert(getActivity(),
+                            getResources().getString(R.string.PaddyProcurement),
+                            otpResponse.getResponseMessage(),
+                            getString(R.string.otp_is_empty), false);
+                }
+            } else if (otpResponse != null &&
+                    otpResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
+                Utils.customAlert(getActivity(),
+                        getResources().getString(R.string.PaddyProcurement),
+                        otpResponse.getResponseMessage(),
+                        getString(R.string.ERROR), false);
+            } else if (otpResponse != null &&
+                    otpResponse.getStatusCode() == AppConstants.SESSION_CODE) {
+                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PaddyProcurementdetails),
+                        otpResponse.getResponseMessage(), getFragmentManager());
+            } else if (otpResponse != null &&
+                    otpResponse.getStatusCode() == AppConstants.VERSION_CODE) {
+                Utils.callPlayAlert(otpResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
 
             } else {
                 Utils.customAlert(getActivity(),

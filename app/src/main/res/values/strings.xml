@@ -728,5 +728,11 @@
     <string name="plz_ent_user_name">Please enter User name</string>
     <string name="val_user_name">Please enter valid User name</string>
     <string name="plz_ent_pwd">Please enter password</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="verify_proceed"><![CDATA[Verify & Proceed]]></string>
+    <string name="six_digit_otp">Please enter 6 Digit OTP</string>
+    <string name="invalid_otp">Entered OTP is invalid</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="otp_is_empty">OTP is empty</string>
 
 </resources>
