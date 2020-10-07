@@ -11,7 +11,10 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -111,6 +114,7 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
     private SharedPreferences sharedPreferences;
 
     private APrinter aPrinter;
+    private int cnt = 0;
 
     @Nullable
     @Override
@@ -222,6 +226,8 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
         }
     };
 
+    double TotalAmount;
+
     private boolean ValidateData(GetTokensResponse getTokenPaddyResponse, PaddyProcurementSubmit paddySubmitRequest, IssuedGunnyDataResponse gunyOrderResponseListGlobal) {
         try {
 
@@ -265,7 +271,6 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
             }
 
 
-            double TotalAmount;
             String paddyFinalNewBags, paddyFinalOldBags;
 
             paddyFinalNewBags = binding.pproGunnynewbagsEt.getText().toString();
@@ -435,7 +440,9 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
                             if (dialog.isShowing())
                                 dialog.dismiss();
 
-                            if ("login_otp".contains("true")) {
+                            if (!(!TextUtils.isEmpty(ppcUserDetails.getIsOTPEnabled())
+                                    && ppcUserDetails.getIsOTPEnabled().equalsIgnoreCase("true"))) {
+                                // replace by removing starting !
                                 PaddyOTPRequest request = new PaddyOTPRequest();
                                 request.setpPCID(String.valueOf(ppcUserDetails.getPPCID()));
                                 request.setTokenNo(getTokenOutputMain.getTokenNo());
@@ -469,28 +476,83 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
         }
     }
 
+    Dialog otpDialog;
+
     private void showOTPAlert(PaddyProcurementSubmit paddySubmitRequest, String otpValue) {
         try {
             if (getActivity() != null) {
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                if (dialog.getWindow() != null) {
-                    dialog.getWindow().getAttributes().windowAnimations = R.style.exitdialog_animation1;
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    dialog.setContentView(R.layout.paddy_otp_alert);
-                    dialog.setCancelable(false);
-                    if (!dialog.isShowing())
-                        dialog.show();
-                    dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    Button verifyBtn = dialog.findViewById(R.id.verifyBtn);
-                    Button btnCancel = dialog.findViewById(R.id.btnCancel);
-                    CustomFontEditText otpEt = dialog.findViewById(R.id.otpEt);
-                    CustomFontTextView resendTv = dialog.findViewById(R.id.resendTv);
+                otpDialog = new Dialog(getActivity());
+                otpDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                if (otpDialog.getWindow() != null) {
+                    otpDialog.getWindow().getAttributes().windowAnimations = R.style.exitdialog_animation1;
+                    otpDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    otpDialog.setContentView(R.layout.paddy_otp_alert);
+                    otpDialog.setCancelable(false);
+                    if (!otpDialog.isShowing())
+                        otpDialog.show();
+                    otpDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    Button verifyBtn = otpDialog.findViewById(R.id.verifyBtn);
+                    Button btnCancel = otpDialog.findViewById(R.id.btnCancel);
+                    CustomFontEditText otpEt = otpDialog.findViewById(R.id.otpEt);
+                    CustomFontTextView resendTv = otpDialog.findViewById(R.id.resendTv);
+                    CustomFontTextView amountTv = otpDialog.findViewById(R.id.totalAmountTV);
+                    CustomFontTextView mobNumTv = otpDialog.findViewById(R.id.mobNumTV);
+
+                    if (TextUtils.isEmpty(ppcUserDetails.getSmsCount())) { //!TextUtils.isEmpty(ppcUserDetails.getSmsCount())
+                        otpTimer(resendTv, 3);// 3 replace with ppcUserDetails.getSmsCount()
+                    }
+                    mobNumTv.setText("OTP sent to: " + getTokenOutputMain.getMobile());
+                    amountTv.setText("Total Amount: " + TotalAmount);
+
+                    otpEt.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (s.length() == 6) {
+                                Utils.hideKeyboard(otpEt);
+                            }
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+
+/*                if (!TextUtils.isEmpty(ppcUserDetails.getSmsCount())) {
+                        if (cnt <= Integer.valueOf(ppcUserDetails.getSmsCount())) {
+                            resendTv.setVisibility(View.VISIBLE);
+                        } else {
+                            resendTv.setVisibility(View.GONE);
+                        }
+                    }*/
 
                     resendTv.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if (otpDialog.isShowing())
+                                otpDialog.dismiss();
+                            cnt++;
 
+                            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                                if (customProgressDialog != null)
+                                    customProgressDialog.show();
+                                PaddyOTPRequest request = new PaddyOTPRequest();
+                                request.setpPCID(String.valueOf(ppcUserDetails.getPPCID()));
+                                request.setTokenNo(getTokenOutputMain.getTokenNo());
+                                request.setMobileNo(getTokenOutputMain.getMobile());
+                                GetOTPRequest(paddySubmitRequest, request);
+                            } else {
+                                Utils.customAlert(getActivity(),
+                                        getResources().getString(R.string.PaddyProcurementdetails),
+                                        getResources().getString(R.string.no_internet),
+                                        getResources().getString(R.string.WARNING), false);
+                            }
                         }
                     });
 
@@ -508,8 +570,8 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
                                 otpEt.setError(getString(R.string.invalid_otp));
                                 otpEt.requestFocus();
                             } else {
-                                if (dialog.isShowing())
-                                    dialog.dismiss();
+                                if (otpDialog.isShowing())
+                                    otpDialog.dismiss();
                                 if (ConnectionDetector.isConnectedToInternet(getActivity())) {
                                     if (customProgressDialog != null && !customProgressDialog.isShowing())
                                         customProgressDialog.show();
@@ -526,8 +588,8 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
                     btnCancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (dialog.isShowing())
-                                dialog.dismiss();
+                            if (otpDialog.isShowing())
+                                otpDialog.dismiss();
                         }
                     });
                 }
@@ -536,6 +598,29 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
             e.printStackTrace();
         }
     }
+
+
+    private void otpTimer(CustomFontTextView tvResend, int actCnt) {
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvResend.setEnabled(false);
+                tvResend.setText(getString(R.string.resend_otp) + ": " + millisUntilFinished / 1000 + " Seconds");
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+                if (cnt < actCnt) {
+                    tvResend.setEnabled(true);
+                    tvResend.setText(getString(R.string.resend_otp));
+                } else {
+                    tvResend.setVisibility(View.GONE);
+                }
+            }
+
+        }.start();
+    }
+
 
     private StringBuilder paddySubmitData(PaddyProcurementSubmit paddySubmitRequest) {
 
@@ -820,7 +905,7 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
         issuedGunnyDataRequest.setAuthenticationID(ppcUserDetails.getAuthenticationID());
         issuedGunnyDataRequest.setPPCID(String.valueOf(ppcUserDetails.getPPCID()));
         issuedGunnyDataRequest.setTokenID("" + getTokensProcurementResponseData.getGetTokenOutput().get(0).getTokenID());
-        issuedGunnyDataRequest.setTransactionID(getTokensProcurementResponseData.getGetTokenOutput().get(0).getFarmerTransactionID());
+        issuedGunnyDataRequest.setTransactionID("" + getTokensProcurementResponseData.getGetTokenOutput().get(0).getFarmerTransactionID());
         issuedGunnyDataRequest.setTransactionRowID("" + getTokensProcurementResponseData.getGetTokenOutput().get(0).getFarmerTransactionRowID());
         issuedGunnyDataRequest.setTransactionStatus("00"); // static
         if (customProgressDialog != null)

@@ -74,6 +74,28 @@ public class PPCUserDetails {
     @Expose
     private Integer yieldPerAcre;
 
+    @SerializedName("SMSCount")
+    @Expose
+    private String smsCount;
+    @SerializedName("IsOTPEnableds")
+    @Expose
+    private String isOTPEnabled;
+
+    public String getSmsCount() {
+        return smsCount;
+    }
+
+    public void setSmsCount(String smsCount) {
+        this.smsCount = smsCount;
+    }
+
+    public String getIsOTPEnabled() {
+        return isOTPEnabled;
+    }
+
+    public void setIsOTPEnabled(String isOTPEnabled) {
+        this.isOTPEnabled = isOTPEnabled;
+    }
 
     public Integer getPPCID() {
         return pPCID;

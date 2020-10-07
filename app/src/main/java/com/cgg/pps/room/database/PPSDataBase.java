@@ -25,7 +25,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {BankEntity.class, BranchEntity.class,
         DistrictEntity.class, MandalEntity.class, VillageEntity.class,
         PaddyEntity.class, SocialEntity.class, VehicleDetails.class},
-        version = 1, exportSchema = false)
+        version = 2, exportSchema = false)
 
 public abstract class PPSDataBase extends RoomDatabase {
 
@@ -35,6 +35,7 @@ public abstract class PPSDataBase extends RoomDatabase {
     public static synchronized PPSDataBase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context, PPSDataBase.class, PPS_DB)
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return instance;

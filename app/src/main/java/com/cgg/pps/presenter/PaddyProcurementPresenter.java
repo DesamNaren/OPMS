@@ -16,6 +16,7 @@ import com.cgg.pps.model.response.procurement.ProcurementSubmitResponse;
 import com.cgg.pps.network.OPMSService;
 import com.cgg.pps.util.AppConstants;
 import com.cgg.pps.util.Utils;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -122,6 +123,9 @@ public class PaddyProcurementPresenter implements BasePresenter<PaddyProcurement
         try {
             OPMSApplication application = OPMSApplication.get(paddyProcurementInterface.getContext());
             OPMSService gitHubService = application.getDBService();
+            Gson gson = new Gson();
+            String str = gson.toJson(issuedGunnyDataRequest);
+
 
             gitHubService.GetIssuedGunnyDataResponse(issuedGunnyDataRequest)
                     .observeOn(AndroidSchedulers.mainThread())
