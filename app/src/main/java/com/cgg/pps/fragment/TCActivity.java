@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +18,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -25,11 +25,12 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -44,7 +45,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -53,7 +56,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.analogics.thermalAPI.Bluetooth_Printer_2inch_ThermalAPI;
-import com.bumptech.glide.Glide;
 import com.cgg.pps.R;
 import com.cgg.pps.adapter.ROInfoAdapter;
 import com.cgg.pps.application.OPMSApplication;
@@ -116,11 +118,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.regex.Pattern;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
 
-public class TCFragment extends Fragment implements TCInterface, AdapterView.OnItemSelectedListener
+public class TCActivity extends AppCompatActivity implements TCInterface, AdapterView.OnItemSelectedListener
         , View.OnClickListener, VehicleInterface, RePrintInterface {
     private TruchchitFragmentBinding binding;
     private PPCUserDetails ppcUserDetails;
@@ -152,16 +153,30 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
     private String timeStamp;
 
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.truchchit_fragment, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this, R.layout.truchchit_fragment);
+        try {
+            setSupportActionBar(binding.drpToolbar);
+            getSupportActionBar().setTitle(getString(R.string.PPCtoMiller));
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            int permissionCheck = ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.CAMERA);
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                customPerAlert();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         tcPresenter = new TCPresenter();
         tcPresenter.attachView(this);
         rePrintPresenter = new RePrintPresenter();
         rePrintPresenter.attachView(this);
-        vehicleRepository = new VehicleRepository(getActivity());
+        vehicleRepository = new VehicleRepository(TCActivity.this);
 
         transporterVehicleTypes = new ArrayList<>();
         binding.PPCtoMillerPaadyDetailsTabel.removeAllViews();
@@ -205,7 +220,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         getPreferenceData();
         aPrinter = APrinter.getaPrinter();
 
-        customProgressDialog = new CustomProgressDialog(getActivity());
+        customProgressDialog = new CustomProgressDialog(TCActivity.this);
 
         String transportDate = Utils.getTransportDate();
         binding.PPCtoMillerTransportDateTv.setText(transportDate);
@@ -215,11 +230,11 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
         vehicleRepository.getAllTransports(this);
 
-        if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+        if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
             getOnlineTCNo();
 
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.no_internet),
                     getResources().getString(R.string.WARNING), false);
@@ -244,7 +259,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
         if (sharedPreferences.getBoolean(AppConstants.PRINTER_CON_FLAG, false)) {
             if (AppConstants.BT_ADDRESS == null || AppConstants.BT_ADDRESS.equals("")) {
-                Utils.ShowPrintAlert(getActivity(), getFragmentManager(), customProgressDialog);
+                Utils.ShowPrintAlert(TCActivity.this, getSupportFragmentManager(), customProgressDialog);
             }
         }
 
@@ -255,18 +270,31 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 return false;
             }
         });
-
-        return binding.getRoot();
     }
+
+    private String cacheDate, currentDate;
 
     public void onResume() {
         super.onResume();
-
         try {
-            if (getActivity() != null)
-                ((DashboardActivity) getActivity())
-                        .setActionBarTitle(getResources().getString(R.string.PPCtoMiller));
+            boolean isAutomatic = Utils.isTimeAutomatic(this);
+            if (!isAutomatic) {
+                Utils.customTimeAlert(this,
+                        getResources().getString(R.string.app_name),
+                        getString(R.string.date_time));
+                return;
+            }
 
+            currentDate = Utils.getCurrentDate();
+            cacheDate = sharedPreferences.getString(AppConstants.CACHE_DATE, "");
+            if (cacheDate != null && !TextUtils.isEmpty(cacheDate)) {
+                if (!cacheDate.equalsIgnoreCase(currentDate)) {
+                    Utils.ShowDeviceSessionAlert(this,
+                            getResources().getString(R.string.DRP),
+                            getString(R.string.ses_expire_re),
+                            getSupportFragmentManager());
+                }
+            }
         } catch (Resources.NotFoundException e) {
             e.printStackTrace();
         }
@@ -279,7 +307,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             if (!TextUtils.isEmpty(AppConstants.BT_ADDRESS)) {
                 flag = aPrinter.openBT(AppConstants.BT_ADDRESS);
             } else {
-                Toast.makeText(getActivity(), getResources().getString(R.string.print_alert_not), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TCActivity.this, getResources().getString(R.string.print_alert_not), Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -355,7 +383,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         public void onClick(View v) {
                             if (dialog.isShowing())
                                 dialog.dismiss();
-                            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                            if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
                                 if (customProgressDialog != null && !customProgressDialog.isShowing())
                                     customProgressDialog.show();
 
@@ -370,7 +398,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
 
                             } else {
-                                Utils.customAlert(getActivity(),
+                                Utils.customAlert(TCActivity.this,
                                         getResources().getString(R.string.PPCtoMiller),
                                         getResources().getString(R.string.no_internet),
                                         getResources().getString(R.string.WARNING), false);
@@ -399,15 +427,15 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void getPreferenceData() {
         try {
-            Gson gson = OPMSApplication.get(getActivity()).getGson();
-            sharedPreferences = OPMSApplication.get(getActivity()).getPreferences();
+            Gson gson = OPMSApplication.get(TCActivity.this).getGson();
+            sharedPreferences = OPMSApplication.get(TCActivity.this).getPreferences();
             String string = sharedPreferences.getString(AppConstants.PPC_DATA, "");
             ppcUserDetails = gson.fromJson(string, PPCUserDetails.class);
             if (ppcUserDetails == null) {
-                Utils.ShowDeviceSessionAlert(getActivity(),
+                Utils.ShowDeviceSessionAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getString(R.string.ses_expire_re),
-                        getFragmentManager());
+                        getSupportFragmentManager());
             }
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
@@ -446,44 +474,44 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         mills.add(millerMasterResponse.getMillerData().get(i).getMillName() + "~" + millerMasterResponse.getMillerData().get(i).getMillerCode());
                     }
                     if (mills.size() > 0) {
-                        Utils.loadSpinnerData(getActivity(), mills, binding.PPCtoMillerIdSp);
+                        Utils.loadSpinnerData(TCActivity.this, mills, binding.PPCtoMillerIdSp);
                     }
 
 
                 } else {
-                    Utils.customAlert(getActivity(),
+                    Utils.customAlert(TCActivity.this,
                             getResources().getString(R.string.PPCtoMiller),
                             millerMasterResponse.getResponseMessage(),
                             getResources().getString(R.string.ERROR), false);
                 }
             } else if (millerMasterResponse != null &&
                     millerMasterResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         millerMasterResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (millerMasterResponse != null &&
                     millerMasterResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         millerMasterResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (millerMasterResponse != null &&
                     millerMasterResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        millerMasterResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        millerMasterResponse.getResponseMessage(), getSupportFragmentManager());
             } else if (millerMasterResponse != null &&
                     millerMasterResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(millerMasterResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(millerMasterResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getResources().getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.server_not),
                     getResources().getString(R.string.something), false);
@@ -519,41 +547,41 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     callTransactions();
 
                 } else {
-                    Utils.customAlert(getActivity(),
+                    Utils.customAlert(TCActivity.this,
                             getResources().getString(R.string.PPCtoMiller),
                             onlineTCResponse.getResponseMessage(),
                             getResources().getString(R.string.ERROR), false);
                 }
             } else if (onlineTCResponse != null &&
                     onlineTCResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         onlineTCResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
 
             } else if (onlineTCResponse != null &&
                     onlineTCResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         onlineTCResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
 
             } else if (onlineTCResponse != null &&
                     onlineTCResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        onlineTCResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        onlineTCResponse.getResponseMessage(), getSupportFragmentManager());
             } else if (onlineTCResponse != null &&
                     onlineTCResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(onlineTCResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(onlineTCResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getResources().getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getResources().getString(R.string.ERROR), false);
@@ -575,34 +603,34 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
             } else if (roInfoResponse != null &&
                     roInfoResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         roInfoResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
 
             } else if (roInfoResponse != null &&
                     roInfoResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         roInfoResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
 
             } else if (roInfoResponse != null &&
                     roInfoResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        roInfoResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        roInfoResponse.getResponseMessage(), getSupportFragmentManager());
             } else if (roInfoResponse != null &&
                     roInfoResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(roInfoResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(roInfoResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getResources().getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getResources().getString(R.string.ERROR), false);
@@ -624,12 +652,12 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 disableManVerify();
 
                 if (!finalSubmitFlag) {
-                    Utils.customAlert(getActivity(),
+                    Utils.customAlert(TCActivity.this,
                             getResources().getString(R.string.PPCtoMiller),
                             manualTCResponse.getResponseMessage(),
                             getResources().getString(R.string.SUCCESS), false);
                 } else {
-                    if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                    if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
                         if (customProgressDialog != null && !customProgressDialog.isShowing())
                             customProgressDialog.show();
 
@@ -642,7 +670,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
                         tcPresenter.SubmitCall(tcFinalSubmitRequest);
                     } else {
-                        Utils.customAlert(getActivity(),
+                        Utils.customAlert(TCActivity.this,
                                 getResources().getString(R.string.PPCtoMiller),
                                 getResources().getString(R.string.no_internet),
                                 getResources().getString(R.string.WARNING), false);
@@ -650,32 +678,32 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 }
             } else if (manualTCResponse != null &&
                     manualTCResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         manualTCResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (manualTCResponse != null &&
                     manualTCResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         manualTCResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (manualTCResponse != null &&
                     manualTCResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        manualTCResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        manualTCResponse.getResponseMessage(), getSupportFragmentManager());
             } else if (manualTCResponse != null &&
                     manualTCResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(manualTCResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(manualTCResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getResources().getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getResources().getString(R.string.ERROR), false);
@@ -752,39 +780,39 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     }
 
                 } else {
-                    Utils.customAlert(getActivity(),
+                    Utils.customAlert(TCActivity.this,
                             getResources().getString(R.string.PPCtoMiller),
                             getTransactionResponse.getResponseMessage(),
                             getResources().getString(R.string.ERROR), false);
                 }
             } else if (getTransactionResponse != null &&
                     getTransactionResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getTransactionResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (getTransactionResponse != null &&
                     getTransactionResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getTransactionResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (getTransactionResponse != null &&
                     getTransactionResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        getTransactionResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        getTransactionResponse.getResponseMessage(), getSupportFragmentManager());
             } else if (getTransactionResponse != null &&
                     getTransactionResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(getTransactionResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(getTransactionResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getResources().getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getResources().getString(R.string.ERROR), false);
@@ -804,40 +832,40 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 if (vehicleDataResponse.getVehicleDetails() != null && vehicleDataResponse.getVehicleDetails().size() > 0) {
                     vehicleRepository.insertAllVehicles(this, vehicleDataResponse.getVehicleDetails());
                 } else {
-                    Utils.customAlert(getActivity(),
+                    Utils.customAlert(TCActivity.this,
                             getResources().getString(R.string.PPCtoMiller),
                             vehicleDataResponse.getResponseMessage(),
                             getResources().getString(R.string.ERROR), false);
                 }
             } else if (vehicleDataResponse != null &&
                     vehicleDataResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         vehicleDataResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
 
             } else if (vehicleDataResponse != null &&
                     vehicleDataResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         vehicleDataResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (vehicleDataResponse != null &&
                     vehicleDataResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(vehicleDataResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(vehicleDataResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else if (vehicleDataResponse != null &&
                     vehicleDataResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        vehicleDataResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        vehicleDataResponse.getResponseMessage(), getSupportFragmentManager());
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getResources().getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getResources().getString(R.string.ERROR), false);
@@ -869,7 +897,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         vehTypes.add(transporterVehicleTypes.get(z).getVehicleTypeName());
                     }
 
-                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),
+                    ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(TCActivity.this,
                             android.R.layout.simple_spinner_item, vehTypes);
 
                     spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -878,40 +906,40 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
 //                    vehicleRepository.insertVehicleTypes(this, vehicleTypesResponse.getTransporterVehicleType());
                 } else {
-                    Utils.customAlert(getActivity(),
+                    Utils.customAlert(TCActivity.this,
                             getResources().getString(R.string.PPCtoMiller),
                             vehicleTypesResponse.getResponseMessage(),
                             getResources().getString(R.string.ERROR), false);
                 }
             } else if (vehicleTypesResponse != null &&
                     vehicleTypesResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         vehicleTypesResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
 
             } else if (vehicleTypesResponse != null &&
                     vehicleTypesResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         vehicleTypesResponse.getResponseMessage(),
                         getResources().getString(R.string.ERROR), false);
             } else if (vehicleTypesResponse != null &&
                     vehicleTypesResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(vehicleTypesResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(vehicleTypesResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else if (vehicleTypesResponse != null &&
                     vehicleTypesResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        vehicleTypesResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        vehicleTypesResponse.getResponseMessage(), getSupportFragmentManager());
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getResources().getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getResources().getString(R.string.ERROR), false);
@@ -926,32 +954,32 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
         try {
             if (tcSubmitResponse != null && tcSubmitResponse.getStatusCode() == AppConstants.SUCCESS_CODE) {
-                Fragment fragment = new DashboardFragment();
-                PrintAlert(getActivity(), fragment, getFragmentManager(), tcSubmitResponse,
+//                Fragment fragment = new DashboardFragment();
+                PrintAlert(TCActivity.this, tcSubmitResponse,
                         getResources().getString(R.string.PPCtoMiller),
                         tcSubmitResponse.getResponseMessage());
             } else if (tcSubmitResponse != null &&
                     tcSubmitResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         tcSubmitResponse.getResponseMessage(),
                         getString(R.string.ERROR), false);
             } else if (tcSubmitResponse != null &&
                     tcSubmitResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        tcSubmitResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        tcSubmitResponse.getResponseMessage(), getSupportFragmentManager());
             } else if (tcSubmitResponse != null &&
                     tcSubmitResponse.getStatusCode() == AppConstants.VERSION_CODE) {
-                Utils.callPlayAlert(tcSubmitResponse.getResponseMessage(), getActivity(), getFragmentManager(), true);
+                Utils.callPlayAlert(tcSubmitResponse.getResponseMessage(), TCActivity.this, getSupportFragmentManager(), true);
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not),
                         getString(R.string.ERROR), false);
             }
         } catch (Resources.NotFoundException e) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getString(R.string.ERROR), false);
@@ -961,7 +989,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void showInfoAlert(ROInfoResponse roInfoResponse) {
         try {
-            final Dialog dialog = new Dialog(getActivity());
+            final Dialog dialog = new Dialog(TCActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             if (dialog.getWindow() != null && dialog.getWindow().getAttributes() != null) {
                 dialog.getWindow().getAttributes().windowAnimations = R.style.exitdialog_animation1;
@@ -991,8 +1019,8 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         roInfoResponse.getDetailedRoInfoOutput().size() > 0) {
 
                     RecyclerView recyclerView = dialog.findViewById(R.id.rvInfo);
-                    ROInfoAdapter roInfoAdapter = new ROInfoAdapter(getActivity(), roInfoResponse);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    ROInfoAdapter roInfoAdapter = new ROInfoAdapter(TCActivity.this, roInfoResponse);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(TCActivity.this));
                     recyclerView.setAdapter(roInfoAdapter);
                 }
 
@@ -1016,8 +1044,6 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
 
     private void PrintAlert(Activity activity,
-                            Fragment fragment,
-                            final FragmentManager fragmentManager,
                             TCSubmitResponse tcSubmitResponse,
                             String title, String alertMsg) {
         try {
@@ -1049,8 +1075,11 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         if (dialog.isShowing()) {
                             dialog.dismiss();
                         }
-                        AppConstants.FARG_TAG = DashboardFragment.class.getSimpleName();
-                        callFragment(fragment, fragmentManager, AppConstants.FARG_TAG);
+
+                        callHome();
+
+//                        AppConstants.FARG_TAG = DashboardFragment.class.getSimpleName();
+//                        callFragment(fragment, fragmentManager, AppConstants.FARG_TAG);
                     }
                 });
 
@@ -1061,12 +1090,14 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         if (dialog.isShowing())
                             dialog.dismiss();
                         if (!(sharedPreferences.getBoolean(AppConstants.PRINTER_CON_FLAG, false))) {
-                            AppConstants.FARG_TAG = DashboardFragment.class.getSimpleName();
-                            callFragment(fragment, fragmentManager, AppConstants.FARG_TAG);
+//                            AppConstants.FARG_TAG = DashboardFragment.class.getSimpleName();
+//                            callFragment(fragment, fragmentManager, AppConstants.FARG_TAG);
+                            callHome();
                             Toast.makeText(activity, getString(R.string.plz_take_reprint), Toast.LENGTH_SHORT).show();
                         } else if (AppConstants.BT_ADDRESS == null || AppConstants.BT_ADDRESS.equals("")) {
-                            AppConstants.FARG_TAG = DashboardFragment.class.getSimpleName();
-                            callFragment(fragment, fragmentManager, AppConstants.FARG_TAG);
+//                            AppConstants.FARG_TAG = DashboardFragment.class.getSimpleName();
+//                            callFragment(fragment, fragmentManager, AppConstants.FARG_TAG);
+                            callHome();
                             Toast.makeText(activity, getString(R.string.plz_take_reprint), Toast.LENGTH_SHORT).show();
                         } else {
                             callPrintMethod(tcSubmitResponse);
@@ -1082,10 +1113,16 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         }
     }
 
+    private void callHome(){
+        startActivity(new Intent(this, DashboardActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+        finish();
+    }
+
     private void callPrintMethod(TCSubmitResponse tcSubmitResponse) {
 
         try {
-            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+            if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
                 customProgressDialog.show();
                 TCRePrintRequest tcRePrintRequest = new TCRePrintRequest();
                 tcRePrintRequest.setAuthenticationID(ppcUserDetails.getAuthenticationID());
@@ -1093,7 +1130,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 tcRePrintRequest.setManualTruckChitNo(tcSubmitResponse.getSaveTruckChitOutput().getManualPPCTruckchitID());
                 rePrintPresenter.GetTCTxnData(tcRePrintRequest);
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.no_internet),
                         getString(R.string.WARNING), false);
@@ -1145,7 +1182,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 binding.PPCtoMillerPaadyDetailsTabel.removeAllViews();
             }
 
-            LayoutInflater mInflater = LayoutInflater.from(getActivity());
+            LayoutInflater mInflater = LayoutInflater.from(TCActivity.this);
             final TableRow paramView = (TableRow) mInflater.inflate(R.layout.dispatch_paddydetails_tr, null);
 
             CheckBox PPCtoMiller_paddytype_Cb = paramView.findViewById(R.id.PPCtoMiller_paddytype_Cb);
@@ -1216,7 +1253,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
                             if (totSentBags == 0) {
                                 buttonView.setChecked(false);
-                                Toast.makeText(getActivity(), getString(R.string.enter_valid_bags), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TCActivity.this, getString(R.string.enter_valid_bags), Toast.LENGTH_SHORT).show();
                                 PPCtoMiller_qtySent_Et.setText("");
                                 PPCtoMiller_qtySent_Et.setVisibility(View.INVISIBLE);
                                 return;
@@ -1262,7 +1299,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                                     PPCtoMiller_newBagsSent_Et.setEnabled(true);
                                     PPCtoMiller_oldBagsSent_Et.setEnabled(true);
 
-                                    Utils.customAlert(getActivity(),
+                                    Utils.customAlert(TCActivity.this,
                                             getResources().getString(R.string.PPCtoMiller),
                                             getString(R.string.ro_exceed),
                                             getString(R.string.INFORMATION), false);
@@ -1302,7 +1339,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                             PPCtoMiller_newBagsSent_Et.setEnabled(true);
                             PPCtoMiller_oldBagsSent_Et.setEnabled(true);
 
-                            Utils.customAlert(getActivity(),
+                            Utils.customAlert(TCActivity.this,
                                     getResources().getString(R.string.PPCtoMiller),
                                     getString(R.string.select_mill),
                                     getString(R.string.INFORMATION), false);
@@ -1377,7 +1414,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
                             vehicleRepository.getTransporterID(this, traName);
                         } else {
-                            Utils.loadAutoCompleteTextData(getActivity(),
+                            Utils.loadAutoCompleteTextData(TCActivity.this,
                                     null,
                                     binding.PPCtoMillerVehicleNoATv);
                         }
@@ -1405,19 +1442,19 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             }
 
             if (vehNums.size() > 0) {
-                Utils.loadAutoCompleteTextData(getActivity(),
+                Utils.loadAutoCompleteTextData(TCActivity.this,
                         vehNums,
                         binding.PPCtoMillerVehicleNoATv);
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.no_veh_data),
                         getResources().getString(R.string.WARNING), false);
             }
 
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.no_veh_data),
                     getResources().getString(R.string.WARNING), false);
@@ -1429,7 +1466,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         try {
             if (transports != null && transports.size() > 0) {
                 transports.add(0, "--Select--");
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, transports);
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(TCActivity.this, android.R.layout.simple_spinner_item, transports);
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 binding.PPCtoMillerTransporterNameSp.setAdapter(spinnerArrayAdapter);
                 binding.PPCtoMillerTransporterNameSp.setSelection(0);
@@ -1445,7 +1482,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
     @Override
     public void getVehiclesTypes(List<TransporterVehicleType> transporterVehicleTypes) {
         try {
-            TCFragment.this.transporterVehicleTypes = transporterVehicleTypes;
+            TCActivity.this.transporterVehicleTypes = transporterVehicleTypes;
             if (transporterVehicleTypes != null && transporterVehicleTypes.size() > 0) {
                 TransporterVehicleType transporterVehicleType = new TransporterVehicleType();
                 transporterVehicleType.setVehicleTypeID(-1);
@@ -1456,7 +1493,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     vehTypes.add(transporterVehicleType.getVehicleTypeName());
                 }
 
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getActivity(),
+                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(TCActivity.this,
                         android.R.layout.simple_spinner_item, vehTypes);
 
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1479,7 +1516,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             vehicleRepository.getAllVehicles(this, selTransID);
 
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something),
                     getResources().getString(R.string.WARNING), false);
@@ -1504,7 +1541,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 }
             }
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.no_veh_data),
                     getResources().getString(R.string.WARNING), false);
@@ -1513,7 +1550,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void customRefreshAlert(String title, String msg) {
         try {
-            final Dialog dialog = new Dialog(getActivity());
+            final Dialog dialog = new Dialog(TCActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             if (dialog.getWindow() != null && dialog.getWindow().getAttributes() != null) {
                 dialog.getWindow().getAttributes().windowAnimations = R.style.exitdialog_animation1;
@@ -1549,7 +1586,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void CallVehicleAPI() {
         try {
-            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+            if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
                 if (customProgressDialog != null && !customProgressDialog.isShowing())
                     customProgressDialog.show();
                 VehicleDetailsRequest vehicleDetailsRequest = new VehicleDetailsRequest();
@@ -1557,7 +1594,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 vehicleDetailsRequest.setAuthenticationID(ppcUserDetails.getAuthenticationID());
                 tcPresenter.GetVehicleResponse(vehicleDetailsRequest);
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.no_internet),
                         getResources().getString(R.string.WARNING), false);
@@ -1569,14 +1606,14 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void CallVehicleTypesAPI() {
         try {
-            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+            if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
                 if (customProgressDialog != null && !customProgressDialog.isShowing())
                     customProgressDialog.show();
                 MasterVehicleTypeRequest vehicleTypeRequest = new MasterVehicleTypeRequest();
                 vehicleTypeRequest.setAuthenticationID(ppcUserDetails.getAuthenticationID());
                 tcPresenter.GetMasterVehicleTypeResponse(vehicleTypeRequest);
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.no_internet),
                         getResources().getString(R.string.WARNING), false);
@@ -1592,7 +1629,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         if (cnt > 0) {
             vehicleRepository.getAllTransports(this);
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.no_tra_data),
                     getResources().getString(R.string.INFORMATION), false);
@@ -1604,7 +1641,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         if (cnt > 0) {
 //            vehicleRepository.getVehicleMaster(this);
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.no_master_veh_type_data),
                     getResources().getString(R.string.INFORMATION), false);
@@ -1635,81 +1672,89 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 if (tcRePrintResponse.getGettruck() != null) {
                     if (sharedPreferences.getBoolean(AppConstants.PRINTER_CON_FLAG, false)) {
                         if (AppConstants.BT_ADDRESS == null || AppConstants.BT_ADDRESS.equals("")) {
-                            Utils.ShowPrintAlert(getActivity(), getFragmentManager(), customProgressDialog);
+                            Utils.ShowPrintAlert(TCActivity.this, getSupportFragmentManager(), customProgressDialog);
                             return;
                         }
                         new printAsyncTask(tcRePrintResponse).execute();
 
                     } else {
                         try {
-                            Fragment fragment = new DashboardFragment();
-                            AppConstants.FARG_TAG = PaddyProcurementFragment.class.getSimpleName();
-                            callFragment(fragment, getFragmentManager(), AppConstants.FARG_TAG);
+
+                            callHome();
+
+//                            Fragment fragment = new DashboardFragment();
+//                            AppConstants.FARG_TAG = PaddyProcurementFragment.class.getSimpleName();
+//                            callFragment(fragment, getSupportFragmentManager(), AppConstants.FARG_TAG);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
 
-                        Toast.makeText(getActivity(), getResources().getString(R.string.plz_take_reprint), Toast.LENGTH_LONG).show();
+                        Toast.makeText(TCActivity.this, getResources().getString(R.string.plz_take_reprint), Toast.LENGTH_LONG).show();
                     }
 
 
                 } else {
-                    Utils.customNavigateAlert(getActivity(),
+                    Utils.customNavigateAlert(TCActivity.this,
                             getResources().getString(R.string.PPCtoMiller),
                             tcRePrintResponse.getResponseMessage()
                                     + "\n"
                                     + getResources().getString(R.string.plz_take_reprint),
-                            getFragmentManager());
+                            getSupportFragmentManager());
                 }
             } else if (tcRePrintResponse != null &&
                     tcRePrintResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
 
-                Utils.customNavigateAlert(getActivity(),
+                Utils.customNavigateAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         tcRePrintResponse.getResponseMessage()
                                 + "\n"
                                 + getResources().getString(R.string.plz_take_reprint),
-                        getFragmentManager());
+                        getSupportFragmentManager());
 
             } else if (tcRePrintResponse != null &&
                     tcRePrintResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
 
-                Utils.customNavigateAlert(getActivity(),
+                Utils.customNavigateAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         tcRePrintResponse.getResponseMessage()
                                 + "\n"
                                 + getResources().getString(R.string.plz_take_reprint),
-                        getFragmentManager());
+                        getSupportFragmentManager());
 
             } else if (tcRePrintResponse != null &&
                     tcRePrintResponse.getStatusCode() == AppConstants.VERSION_CODE) {
                 Utils.callPlayAlert(tcRePrintResponse.getResponseMessage(),
-                        getActivity(), getFragmentManager(), true);
+                        TCActivity.this, getSupportFragmentManager(), true);
 
             } else if (tcRePrintResponse != null &&
                     tcRePrintResponse.getStatusCode() == AppConstants.SESSION_CODE) {
-                Utils.ShowSessionAlert(getActivity(), getResources().getString(R.string.PPCtoMiller),
-                        tcRePrintResponse.getResponseMessage(), getFragmentManager());
+                Utils.ShowSessionAlert(TCActivity.this, getResources().getString(R.string.PPCtoMiller),
+                        tcRePrintResponse.getResponseMessage(), getSupportFragmentManager());
             } else {
 
-                Utils.customNavigateAlert(getActivity(),
+                Utils.customNavigateAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.server_not)
                                 + "\n"
                                 + getResources().getString(R.string.plz_take_reprint),
-                        getFragmentManager());
+                        getSupportFragmentManager());
             }
         } catch (Resources.NotFoundException e) {
 
-            Utils.customNavigateAlert(getActivity(),
+            Utils.customNavigateAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getResources().getString(R.string.something)
                             + "\n"
                             + getResources().getString(R.string.plz_take_reprint),
-                    getFragmentManager());
+                    getSupportFragmentManager());
 
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override
@@ -1718,20 +1763,20 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             customProgressDialog.dismiss();
 
         if (code == AppConstants.ERROR_CODE) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     msg,
                     getResources().getString(R.string.ERROR),
                     false);
         } else if (code == AppConstants.EXCEPTION_CODE) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getString(R.string.something) +
                             msg,
                     getResources().getString(R.string.ERROR),
                     false);
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getString(R.string.something),
                     getResources().getString(R.string.ERROR),
@@ -1749,7 +1794,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         printAsyncTask(TCRePrintResponse tcRePrintResponse) {
             this.tcRePrintResponse = tcRePrintResponse;
             try {
-                InputStream is = getActivity().getAssets().open("telanganalogo.bmp");
+                InputStream is = TCActivity.this.getAssets().open("telanganalogo.bmp");
                 bmp = BitmapFactory.decodeStream(is);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1820,16 +1865,19 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             }
 
             if (!aBoolean) {
-                Utils.customPrintFailedAlert(getActivity(),
-                        TCFragment.class.getSimpleName(),
-                        getFragmentManager(),
+                Utils.customPrintFailedAlert(TCActivity.this,
+                        TCActivity.class.getSimpleName(),
+                        getSupportFragmentManager(),
                         getString(R.string.PPCtoMiller),
                         getString(R.string.failed_tc_print));
             } else {
                 try {
-                    Fragment fragment = new DashboardFragment();
-                    AppConstants.FARG_TAG = TCFragment.class.getSimpleName();
-                    callFragment(fragment, getFragmentManager(), AppConstants.FARG_TAG);
+
+                    callHome();
+
+//                    Fragment fragment = new DashboardFragment();
+//                    AppConstants.FARG_TAG = TCActivity.class.getSimpleName();
+//                    callFragment(fragment, getSupportFragmentManager(), AppConstants.FARG_TAG);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -1927,7 +1975,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         } else {
                             binding.PPCtoMillerVehicleTypeSp.setEnabled(true);
                             binding.PPCtoMillerVehicleNoATv.setEnabled(true);
-//                            Utils.customAlert(getActivity(),
+//                            Utils.customAlert(TCActivity.this,
 //                                    getResources().getString(R.string.PPCtoMiller),
 //                                    getResources().getString(R.string.no_veh_data),
 //                                    getResources().getString(R.string.WARNING), false);
@@ -2014,11 +2062,11 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     break;
 
                 case R.id.refresh:
-                    if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                    if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
                         binding.onlineTcNo.setText("");
                         getOnlineTCNo();
                     } else {
-                        Utils.customAlert(getActivity(),
+                        Utils.customAlert(TCActivity.this,
                                 getResources().getString(R.string.PPCtoMiller),
                                 getResources().getString(R.string.no_internet),
                                 getResources().getString(R.string.WARNING), false);
@@ -2026,10 +2074,10 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     break;
 
                 case R.id.trn_refresh:
-                    if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                    if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
                         callTransactions();
                     } else {
-                        Utils.customAlert(getActivity(),
+                        Utils.customAlert(TCActivity.this,
                                 getResources().getString(R.string.PPCtoMiller),
                                 getResources().getString(R.string.no_internet),
                                 getResources().getString(R.string.WARNING), false);
@@ -2037,7 +2085,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     break;
                 case R.id.PPCtoMiller_Submit_Btn:
                     if (!manFlag) {
-                        Utils.customAlert(getActivity(),
+                        Utils.customAlert(TCActivity.this,
                                 getResources().getString(R.string.PPCtoMiller),
                                 getString(R.string.plz_ver_man),
                                 getString(R.string.INFORMATION), false);
@@ -2051,23 +2099,23 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                             if (ppcUserDetails.getPPCID() != null) {
                                 tcSubmitRequest.setPpcid(ppcUserDetails.getPPCID());
                             } else {
-                                Toast.makeText(getActivity(), "PPC ID empty", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TCActivity.this, "PPC ID empty", Toast.LENGTH_SHORT).show();
                             }
                             if (ppcUserDetails.getAuthenticationID() != null) {
                                 tcSubmitRequest.setAuthenticationID(ppcUserDetails.getAuthenticationID());
                             } else {
-                                Toast.makeText(getActivity(), "Auth empty", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TCActivity.this, "Auth empty", Toast.LENGTH_SHORT).show();
                             }
                             if (binding.onlineTcNo.getText() != null) {
                                 tcSubmitRequest.setTruckchit(binding.onlineTcNo.getText().toString().trim());
                             } else {
-                                Toast.makeText(getActivity(), "Online TC empty", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TCActivity.this, "Online TC empty", Toast.LENGTH_SHORT).show();
                             }
                             tcSubmitRequest.setSystemIP("");
                             if (ppcUserDetails.getSeasonID() != null) {
                                 tcSubmitRequest.setSeasonID(ppcUserDetails.getSeasonID());
                             } else {
-                                Toast.makeText(getActivity(), "Season ID empty", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(TCActivity.this, "Season ID empty", Toast.LENGTH_SHORT).show();
                             }
                             Long millId = null;
                             if (millerMasterListGlobal != null &&
@@ -2092,17 +2140,17 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                                             if (millId != null) {
                                                 tcSubmitRequest.setMillid(millId);
                                             } else {
-                                                Toast.makeText(getActivity(), "Empty mill id", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(TCActivity.this, "Empty mill id", Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
-                                            Toast.makeText(getActivity(), "No Str[1]", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(TCActivity.this, "No Str[1]", Toast.LENGTH_SHORT).show();
                                         }
 
                                     } else {
-                                        Toast.makeText(getActivity(), "No negation ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(TCActivity.this, "No negation ", Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
-                                    Toast.makeText(getActivity(), "Mill is empty", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(TCActivity.this, "Mill is empty", Toast.LENGTH_SHORT).show();
                                 }
 
                             }
@@ -2110,17 +2158,17 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                             StringBuilder finalString = tcSubmitData(tcSubmitRequest);
                             if (finalString != null) {
                                 tcSubmitRequest.setXmlTruckchitData(finalString.toString());
-                                ShowSubmitTCAlert(tcSubmitRequest, getActivity());
+                                ShowSubmitTCAlert(tcSubmitRequest, TCActivity.this);
 
 
                             }
                         } else {
-                            Toast.makeText(getActivity(), "ppC details null", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TCActivity.this, "ppC details null", Toast.LENGTH_SHORT).show();
                         }
                     }
                     break;
                 case R.id.btn_capture_picture:
-                    callCamPer();
+                    capturePicture();
                     break;
             }
         } catch (Exception e) {
@@ -2130,7 +2178,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void callCamPer() {
         try {
-            Dexter.withActivity(getActivity())
+            Dexter.withActivity(TCActivity.this)
                     .withPermissions(Manifest.permission.CAMERA)
                     .withListener(new MultiplePermissionsListener() {
                         @Override
@@ -2138,8 +2186,8 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                             if (report.areAllPermissionsGranted()) {
                                 capturePicture();
                             } else if (report.isAnyPermissionPermanentlyDenied()) {
-                                Utils.openSettings(getActivity());
-                                Toast.makeText(getActivity(), getString(R.string.all_per_cam), Toast.LENGTH_SHORT).show();
+                                Utils.openSettings(TCActivity.this);
+                                Toast.makeText(TCActivity.this, getString(R.string.all_per_cam), Toast.LENGTH_SHORT).show();
 
                             } else if (report.getDeniedPermissionResponses().size() > 0) {
                                 customPerAlert();
@@ -2160,7 +2208,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void customPerAlert() {
         try {
-            final Dialog dialog = new Dialog(getActivity());
+            final Dialog dialog = new Dialog(TCActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             if (dialog.getWindow() != null && dialog.getWindow().getAttributes() != null) {
                 dialog.getWindow().getAttributes().windowAnimations = R.style.exitdialog_animation1;
@@ -2177,14 +2225,16 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        callCamPer();
+                        ActivityCompat.requestPermissions(TCActivity.this,
+                                new String[]{Manifest.permission.CAMERA},
+                                CAM_CODE);
                     }
                 });
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-                        Toast.makeText(getActivity(), getString(R.string.cam_den), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TCActivity.this, getString(R.string.cam_den), Toast.LENGTH_SHORT).show();
                     }
                 });
                 if (!dialog.isShowing())
@@ -2216,7 +2266,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
     private void callTCInfoAPI() {
         try {
 
-            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+            if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
 
                 Long millId = null;
                 String roNum = "";
@@ -2251,13 +2301,13 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         tcPresenter.GetROInfoResponse(roInfoRequest);
 
                     } else {
-                        Toast.makeText(getActivity(), getResources().getString(R.string.something), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TCActivity.this, getResources().getString(R.string.something), Toast.LENGTH_SHORT).show();
                     }
                 }
 
 
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.no_internet),
                         getResources().getString(R.string.WARNING), false);
@@ -2270,7 +2320,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
     private void callManualTCAPI(boolean flag, TCSubmitRequest tcSubmitRequest) {
         try {
-            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+            if (ConnectionDetector.isConnectedToInternet(TCActivity.this)) {
 
                 String beforeStr = binding.manualTcNoBfr.getText().toString().trim();
                 String afterStr = binding.manualTcNoAft.getText().toString().trim();
@@ -2285,7 +2335,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
                 tcPresenter.GetManualTCResponse(manualTCRequest, flag, tcSubmitRequest);
             } else {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getResources().getString(R.string.no_internet),
                         getResources().getString(R.string.WARNING), false);
@@ -2299,7 +2349,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
     private boolean validateInfo() {
         String millName = binding.PPCtoMillerIdSp.getSelectedItem().toString();
         if (TextUtils.isEmpty(millName) || millName.equalsIgnoreCase("--Select--")) {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getString(R.string.select_mill),
                     getString(R.string.INFORMATION), false);
@@ -2343,7 +2393,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 //    public Uri getOutputMediaFileUri(int type) {
 //        File imageFile = getOutputMediaFile(type);
 //        Uri imageUri = FileProvider.getUriForFile(
-//                getActivity(),
+//                TCActivity.this,
 //                "com.cgg.pps.provider", //(use your app signature + ".provider" )
 //                imageFile);
 //        return imageUri;
@@ -2354,7 +2404,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
         //File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"Android File Upload");
 
-        File mediaStorageDir = new File(Objects.requireNonNull(getActivity()).getExternalFilesDir(null) + "/Android/data/"
+        File mediaStorageDir = new File(Objects.requireNonNull(TCActivity.this).getExternalFilesDir(null) + "/Android/data/"
                 + "Files/" + IMAGE_DIRECTORY_NAME);
 
         if (!mediaStorageDir.exists()) {
@@ -2391,6 +2441,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         startActivityForResult(intent, REQUEST_CAMERA);
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -2398,11 +2449,11 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             if (resultCode == Activity.RESULT_OK) {
                 onCaptureImageResult(data);
             } else if (resultCode == Activity.RESULT_CANCELED) {
-                Toast.makeText(getActivity(),
+                Toast.makeText(TCActivity.this,
                         getString(R.string.user_can), Toast.LENGTH_SHORT)
                         .show();
             } else {
-                Toast.makeText(getActivity(),
+                Toast.makeText(TCActivity.this,
                         getString(R.string.failed_cam), Toast.LENGTH_SHORT)
                         .show();
             }
@@ -2422,13 +2473,13 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                     if (bitmap != null)
                         PHOTO_ENCODED_STRING1 = convertBitMap(bitmap);
                     else
-                        Toast.makeText(getActivity(), "Something went wrong with bitmap", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Something went wrong with bitmap", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(), "Something went wrong with photo capture, Please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Something went wrong with photo capture, Please try again", Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Something went wrong with photo capture, try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Something went wrong with photo capture, try again", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }
@@ -2460,7 +2511,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
         try {
             if (binding.PPCtoMillerIdSp.getSelectedItem() == null) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getString(R.string.select_mill),
                         getString(R.string.INFORMATION), false);
@@ -2469,7 +2520,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
             millName = binding.PPCtoMillerIdSp.getSelectedItem().toString();
             if (TextUtils.isEmpty(millName) || millName.equalsIgnoreCase("--Select--")) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getString(R.string.select_mill),
                         getString(R.string.INFORMATION), false);
@@ -2481,7 +2532,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
             if (binding.PPCtoMillerTransporterNameSp == null ||
                     binding.PPCtoMillerTransporterNameSp.getSelectedItem() == null) {
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getString(R.string.sel_tra),
                         getString(R.string.INFORMATION), false);
@@ -2491,7 +2542,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             transporterName = binding.PPCtoMillerTransporterNameSp.getSelectedItem().toString().trim();
             if (TextUtils.isEmpty(transporterName) || transporterName.equals("--Select--")) {
                 binding.PPCtoMillerTransporterNameSp.requestFocus();
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getString(R.string.sel_tra),
                         getString(R.string.INFORMATION), false);
@@ -2544,7 +2595,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
             vehicleType = binding.PPCtoMillerVehicleTypeSp.getSelectedItem().toString().trim();
             if (!TextUtils.isEmpty(vehicleType) && vehicleType.equalsIgnoreCase("--Select--")) {
                 binding.PPCtoMillerTransporterNameSp.requestFocus();
-                Utils.customAlert(getActivity(),
+                Utils.customAlert(TCActivity.this,
                         getResources().getString(R.string.PPCtoMiller),
                         getString(R.string.sel_veh_type),
                         getString(R.string.INFORMATION), false);
@@ -2563,13 +2614,13 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 if (binding.PPCtoMillerVehicleNoATv.getText() != null) {
                     tcSubmitRequest.setVehicleNumber(binding.PPCtoMillerVehicleNoATv.getText().toString());
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.veh_num_emp), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TCActivity.this, getString(R.string.veh_num_emp), Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 if (selTransID != -1) {
                     tcSubmitRequest.setTransportID(selTransID);
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.trs_sel_emp), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TCActivity.this, getString(R.string.trs_sel_emp), Toast.LENGTH_SHORT).show();
                     return false;
                 }
                 if (transporterVehicleTypes != null && transporterVehicleTypes.size() > 0) {
@@ -2580,7 +2631,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                         }
                     }
                 } else {
-                    Toast.makeText(getActivity(), getString(R.string.trn_typ_emp), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TCActivity.this, getString(R.string.trn_typ_emp), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -2633,8 +2684,8 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 tcSubmitRequest.setCreatedDate(transPortDate);
             }
 
-            if (PHOTO_ENCODED_STRING1 == null && getActivity() != null) {
-                Toast.makeText(getActivity(), getString(R.string.plz_take_man_slip), Toast.LENGTH_SHORT).show();
+            if (PHOTO_ENCODED_STRING1 == null && TCActivity.this != null) {
+                Toast.makeText(TCActivity.this, getString(R.string.plz_take_man_slip), Toast.LENGTH_SHORT).show();
                 return false;
             } else {
                 tcSubmitRequest.setUploadTRImage(PHOTO_ENCODED_STRING1);
@@ -2664,7 +2715,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
 
             tcSubmitRequest.setTransDataArrayList(transDataArrayList);
         } else {
-            Utils.customAlert(getActivity(),
+            Utils.customAlert(TCActivity.this,
                     getResources().getString(R.string.PPCtoMiller),
                     getString(R.string.plz_chk_trn_rec),
                     getString(R.string.INFORMATION), false);
@@ -2732,7 +2783,7 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
                 }
 
             } else {
-                Toast.makeText(getActivity(), "PTransaction empty or ppc details empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TCActivity.this, "PTransaction empty or ppc details empty", Toast.LENGTH_SHORT).show();
             }
 
             tcSubmitRequest.setT_NewBags(NewBags);
@@ -2771,24 +2822,24 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        try {
-            if (customProgressDialog != null) {
-                customProgressDialog.dismiss();
-                customProgressDialog = null;
-            }
-            if (tcPresenter != null) {
-                tcPresenter.detachView();
-            }
-            if (rePrintPresenter != null) {
-                rePrintPresenter.detachView();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        try {
+//            if (customProgressDialog != null) {
+//                customProgressDialog.dismiss();
+//                customProgressDialog = null;
+//            }
+//            if (tcPresenter != null) {
+//                tcPresenter.detachView();
+//            }
+//            if (rePrintPresenter != null) {
+//                rePrintPresenter.detachView();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private class CamAsyncTask extends AsyncTask<Void, Void, String> {
         Bitmap bitmap;
@@ -2809,25 +2860,51 @@ public class TCFragment extends Fragment implements TCInterface, AdapterView.OnI
         }
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        // TODO Auto-generated method stub
-//
-//        outState.putString("photopath", photopath));
-//
-//
-//        super.onSaveInstanceState(outState);
-//    }
-//
-//    @Override
-//    public void onViewStateRestored(Bundle savedInstanceState) {
-//        // TODO Auto-generated method stub
-//        if (savedInstanceState != null) {
-//            if (savedInstanceState.containsKey("photopath")) {
-//                photopath = savedInstanceState.getString("photopath");
-//            }
-//        }
-//
-//        super.onViewStateRestored(savedInstanceState);
-//    }
+    private static final int CAM_CODE = 2000;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAM_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, getString(R.string.cam_gra), Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, getString(R.string.all_per), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        startActivity(new Intent(this, DashboardActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tc_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_home) {
+
+            startActivity(new Intent(this, DashboardActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        callHome();
+    }
 }

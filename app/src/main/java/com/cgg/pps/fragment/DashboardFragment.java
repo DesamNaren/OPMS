@@ -10,20 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.cgg.pps.databinding.DashboardFragmentBinding;
-import com.cgg.pps.interfaces.DashboardFragmentInterface;
-import com.cgg.pps.R;
-import com.cgg.pps.util.ConnectionDetector;
-import com.cgg.pps.util.Utils;
-import com.cgg.pps.view.DRPActivity;
-import com.cgg.pps.view.LoginActivity;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+
+import com.cgg.pps.R;
+import com.cgg.pps.databinding.DashboardFragmentBinding;
+import com.cgg.pps.interfaces.DashboardFragmentInterface;
+import com.cgg.pps.util.ConnectionDetector;
+import com.cgg.pps.util.Utils;
+import com.cgg.pps.view.DRPActivity;
 
 public class DashboardFragment extends Fragment {
     DashboardFragmentBinding binding;
@@ -104,7 +103,9 @@ public class DashboardFragment extends Fragment {
                     callFragment(getResources().getString(R.string.nav_reports));
                     break;
                 case R.id.truckchit:
-                    callFragment(getResources().getString(R.string.PPCtoMiller));
+//                    callFragment(getResources().getString(R.string.PPCtoMiller));
+                    startActivity(new Intent(getActivity(), TCActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                     break;
                 case R.id.drp:
                     startActivity(new Intent(getActivity(), DRPActivity.class)

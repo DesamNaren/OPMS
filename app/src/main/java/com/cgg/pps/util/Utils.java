@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.View;
@@ -33,7 +32,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -73,28 +71,13 @@ import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 
-import static android.Manifest.permission.READ_PHONE_STATE;
-
 public class Utils {
 
     public static String getDeviceID(Context context) {
-//        return "865781041271130";//"358525085864217"//868981026693087//865770025568462
-        String deviceID   = null;
+        String deviceID = "";
         try {
-            ContextCompat.checkSelfPermission(context, READ_PHONE_STATE);
-
-            if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.P) {
-                deviceID = android.provider.Settings.Secure.getString(
-                        context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-            } else {
-                deviceID = null;
-                deviceID = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                if (deviceID == null)
-                    deviceID = Settings.Secure.getString(context.getContentResolver(), "android_id");
-                if (deviceID == null)
-                    deviceID = "NODeviceID";
-            }
-
+            deviceID = android.provider.Settings.Secure.getString(
+                    context.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -154,18 +137,18 @@ public class Utils {
     }
 
     public static boolean ValidateAadharNumber(String aadharNumber) {
-            Pattern aadharPattern = Pattern.compile("\\d{12}");
-            boolean isValidAadhar = false;
-            try {
-                isValidAadhar = aadharPattern.matcher(aadharNumber).matches();
-                if (isValidAadhar) {
-                    isValidAadhar = VerhoeffAlgorithm.validateVerhoeff(aadharNumber);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+        Pattern aadharPattern = Pattern.compile("\\d{12}");
+        boolean isValidAadhar = false;
+        try {
+            isValidAadhar = aadharPattern.matcher(aadharNumber).matches();
+            if (isValidAadhar) {
+                isValidAadhar = VerhoeffAlgorithm.validateVerhoeff(aadharNumber);
             }
-            return isValidAadhar;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return isValidAadhar;
+    }
 
     public static boolean ValidateVehicleNumber(String vehNum) {
         String pattern = "^[a-zA-z]{2}[0-9]{2}[a-zA-z]{2}[0-9]{4}$";
@@ -990,8 +973,8 @@ public class Utils {
     }
 
     public static void callPPCDetailsAlert(Activity activity,
-                                        String title,
-                                        String msg, FragmentManager fragmentManager) {
+                                           String title,
+                                           String msg, FragmentManager fragmentManager) {
         try {
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

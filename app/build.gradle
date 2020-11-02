@@ -14,8 +14,8 @@ android {
         applicationId "com.cgg.pps"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 25 //--- It has to be 23
-        versionName "11.0"//-- It has to be 9.1
+        versionCode 26 //--- It was 25
+        versionName "11.0"//-- It has to be 11.0
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

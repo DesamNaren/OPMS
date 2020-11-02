@@ -1,9 +1,28 @@
 package com.cgg.pps.view;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.cgg.pps.R;
 import com.cgg.pps.application.OPMSApplication;
@@ -19,6 +38,7 @@ import com.cgg.pps.fragment.MappedPPCFragment;
 import com.cgg.pps.fragment.PaddyProcurementFragment;
 import com.cgg.pps.fragment.RePrintFragment;
 import com.cgg.pps.fragment.RejectedTokenFragment;
+import com.cgg.pps.fragment.TCActivity;
 import com.cgg.pps.fragment.TCFragment;
 import com.cgg.pps.fragment.reports.ReportsFragment;
 import com.cgg.pps.interfaces.DashboardFragmentInterface;
@@ -26,34 +46,13 @@ import com.cgg.pps.interfaces.PaddyTestInterface;
 import com.cgg.pps.model.response.devicemgmt.paddyvalues.PaddyEntity;
 import com.cgg.pps.model.response.validateuser.login.PPCUserDetails;
 import com.cgg.pps.room.repository.PaddyTestRepository;
-import com.cgg.pps.util.ConnectionDetector;
 import com.cgg.pps.util.AppConstants;
+import com.cgg.pps.util.ConnectionDetector;
 import com.cgg.pps.util.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.text.TextUtils;
-import android.view.View;
-
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
-
-import androidx.core.view.GravityCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -112,7 +111,7 @@ public class DashboardActivity extends AppCompatActivity
         // 'java.lang.String com.cgg.pps.model.response.validateuser.login.PPCUserDetails.getPPCCode()' on a null object reference
 
         //Need to Handle null check on ppcUserDetails
-        if (ppcUserDetails != null && ppcUserDetails.getPPCCode()!=null && ppcUserDetails.getPPCName()!=null) {
+        if (ppcUserDetails != null && ppcUserDetails.getPPCCode() != null && ppcUserDetails.getPPCName() != null) {
             textView.setText(ppcUserDetails.getPPCCode() + ", " + ppcUserDetails.getPPCName());
         }
 
@@ -286,9 +285,15 @@ public class DashboardActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_truckchit) {
-            AppConstants.FARG_TAG = TCFragment.class.getSimpleName();
-            selectedFragment = new TCFragment();
-            callFragment(selectedFragment, AppConstants.FARG_TAG);
+
+            startActivity(new Intent(this, TCActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
+
+
+//            AppConstants.FARG_TAG = TCFragment.class.getSimpleName();
+//            selectedFragment = new TCFragment();
+//            callFragment(selectedFragment, AppConstants.FARG_TAG);
 
 
         } else if (id == R.id.nav_reports) {
@@ -397,8 +402,15 @@ public class DashboardActivity extends AppCompatActivity
             AppConstants.FARG_TAG = RejectedTokenFragment.class.getSimpleName();
             selectedFragment = new RejectedTokenFragment();
         } else if (fname.equalsIgnoreCase(getResources().getString(R.string.PPCtoMiller))) {
-            AppConstants.FARG_TAG = TCFragment.class.getSimpleName();
-            selectedFragment = new TCFragment();
+//            AppConstants.FARG_TAG = TCFragment.class.getSimpleName();
+//            selectedFragment = new TCFragment();
+
+
+            startActivity(new Intent(this, TCActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
+
+
         } else if (fname.equalsIgnoreCase(getResources().getString(R.string.DataSync))) {
             AppConstants.FARG_TAG = DeviceMgmtFragment.class.getSimpleName();
             selectedFragment = new DeviceMgmtFragment();
