@@ -440,26 +440,37 @@ public class PaddyProcurementFragment extends Fragment implements PaddyProcureme
                             if (dialog.isShowing())
                                 dialog.dismiss();
 
-                            if (!(!TextUtils.isEmpty(ppcUserDetails.getIsOTPEnabled())
-                                    && ppcUserDetails.getIsOTPEnabled().equalsIgnoreCase("true"))) {
-                                // replace by removing starting !
-                                PaddyOTPRequest request = new PaddyOTPRequest();
-                                request.setpPCID(String.valueOf(ppcUserDetails.getPPCID()));
-                                request.setTokenNo(getTokenOutputMain.getTokenNo());
-                                request.setMobileNo(getTokenOutputMain.getMobile());
-                                GetOTPRequest(paddySubmitRequest, request);
+                            if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+                                if (customProgressDialog != null && !customProgressDialog.isShowing())
+                                    customProgressDialog.show();
+                                paddyProcurementPresenter.PaddyProcurementSubmit(paddySubmitRequest);
                             } else {
-                                if (ConnectionDetector.isConnectedToInternet(getActivity())) {
-                                    if (customProgressDialog != null && !customProgressDialog.isShowing())
-                                        customProgressDialog.show();
-                                    paddyProcurementPresenter.PaddyProcurementSubmit(paddySubmitRequest);
-                                } else {
-                                    Utils.customAlert(getActivity(),
-                                            getResources().getString(R.string.PaddyProcurementdetails),
-                                            getResources().getString(R.string.no_internet),
-                                            getResources().getString(R.string.WARNING), false);
-                                }
+                                Utils.customAlert(getActivity(),
+                                        getResources().getString(R.string.PaddyProcurementdetails),
+                                        getResources().getString(R.string.no_internet),
+                                        getResources().getString(R.string.WARNING), false);
                             }
+
+//                            if (!(!TextUtils.isEmpty(ppcUserDetails.getIsOTPEnabled())
+//                                    && ppcUserDetails.getIsOTPEnabled().equalsIgnoreCase("true"))) {
+//                                // replace by removing starting !
+//                                PaddyOTPRequest request = new PaddyOTPRequest();
+//                                request.setpPCID(String.valueOf(ppcUserDetails.getPPCID()));
+//                                request.setTokenNo(getTokenOutputMain.getTokenNo());
+//                                request.setMobileNo(getTokenOutputMain.getMobile());
+//                                GetOTPRequest(paddySubmitRequest, request);
+//                            } else {
+//                                if (ConnectionDetector.isConnectedToInternet(getActivity())) {
+//                                    if (customProgressDialog != null && !customProgressDialog.isShowing())
+//                                        customProgressDialog.show();
+//                                    paddyProcurementPresenter.PaddyProcurementSubmit(paddySubmitRequest);
+//                                } else {
+//                                    Utils.customAlert(getActivity(),
+//                                            getResources().getString(R.string.PaddyProcurementdetails),
+//                                            getResources().getString(R.string.no_internet),
+//                                            getResources().getString(R.string.WARNING), false);
+//                                }
+//                            }
                         }
                     });
                     cancel.setOnClickListener(new View.OnClickListener() {
