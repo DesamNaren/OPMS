@@ -23,7 +23,7 @@ import com.cgg.pps.R;
 import com.cgg.pps.application.OPMSApplication;
 import com.cgg.pps.databinding.TokenReprintFcBinding;
 import com.cgg.pps.interfaces.RePrintInterface;
-import com.cgg.pps.model.request.TokenRePrintRequest;
+import com.cgg.pps.model.request.reprint.TokenRePrintRequest;
 import com.cgg.pps.model.response.reprint.ProcRePrintResponse;
 import com.cgg.pps.model.response.reprint.TokenRePrintResponse;
 import com.cgg.pps.model.response.reprint.truckchit.TCRePrintResponse;

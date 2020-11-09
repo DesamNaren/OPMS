@@ -63,7 +63,7 @@ import com.cgg.pps.databinding.TruchchitFragmentBinding;
 import com.cgg.pps.interfaces.RePrintInterface;
 import com.cgg.pps.interfaces.TCInterface;
 import com.cgg.pps.interfaces.VehicleInterface;
-import com.cgg.pps.model.request.TCRePrintRequest;
+import com.cgg.pps.model.request.reprint.TCRePrintRequest;
 import com.cgg.pps.model.request.truckchit.ManualTCRequest;
 import com.cgg.pps.model.request.truckchit.MillerMasterRequest;
 import com.cgg.pps.model.request.truckchit.OnlineTCRequest;

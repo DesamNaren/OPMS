@@ -734,5 +734,6 @@
     <string name="invalid_otp">Entered OTP is invalid</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="otp_is_empty">OTP is empty</string>
+    <string name="register">Register</string>
 
 </resources>

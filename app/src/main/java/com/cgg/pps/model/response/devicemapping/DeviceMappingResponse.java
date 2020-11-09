@@ -1,9 +1,14 @@
-package com.cgg.pps.model.response;
+package com.cgg.pps.model.response.devicemapping;
 
+
+import com.cgg.pps.model.response.ppc_details.MappedVillage;
+import com.cgg.pps.model.response.ppc_details.Ppcdetails;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ChangePwdResponse {
+import java.util.List;
+
+public class DeviceMappingResponse {
 
     @SerializedName("StatusCode")
     @Expose
@@ -27,5 +32,5 @@ public class ChangePwdResponse {
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
     }
-
 }
+

@@ -8,25 +8,21 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cgg.pps.R;
 import com.cgg.pps.application.OPMSApplication;
 import com.cgg.pps.databinding.ChangePasswordBinding;
 import com.cgg.pps.interfaces.ChangePwdInterface;
-import com.cgg.pps.model.request.ChangePwdRequest;
-import com.cgg.pps.model.request.validateuser.login.ValidateUserRequest;
-import com.cgg.pps.model.response.ChangePwdResponse;
+import com.cgg.pps.model.request.changepwd.ChangePwdRequest;
+import com.cgg.pps.model.response.changepwd.ChangePwdResponse;
 import com.cgg.pps.model.response.validateuser.login.PPCUserDetails;
 import com.cgg.pps.presenter.ChangePwdPresenter;
-import com.cgg.pps.presenter.LoginPresenter;
 import com.cgg.pps.util.AppConstants;
 import com.cgg.pps.util.ConnectionDetector;
 import com.cgg.pps.util.CustomProgressDialog;
 import com.cgg.pps.util.Utils;
 import com.cgg.pps.view.DashboardActivity;
-import com.cgg.pps.view.LoginActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 

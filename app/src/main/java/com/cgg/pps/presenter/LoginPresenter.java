@@ -7,8 +7,10 @@ import com.cgg.pps.R;
 import com.cgg.pps.application.OPMSApplication;
 import com.cgg.pps.base.BasePresenter;
 import com.cgg.pps.interfaces.LoginInterface;
+import com.cgg.pps.model.request.devicemapping.DeviceMappingRequest;
 import com.cgg.pps.model.request.truckchit.vehicledetails.VehicleDetailsRequest;
 import com.cgg.pps.model.request.validateuser.login.ValidateUserRequest;
+import com.cgg.pps.model.response.devicemapping.DeviceMappingResponse;
 import com.cgg.pps.model.response.truckchit.mastervehicle.VehicleResponse;
 import com.cgg.pps.model.response.validateuser.login.ValidateUserResponse;
 import com.cgg.pps.network.OPMSService;
@@ -31,6 +33,7 @@ public class LoginPresenter implements BasePresenter<LoginInterface> {
 
     private LoginInterface loginInterface;
     private ValidateUserResponse validateUserResponse;
+    private DeviceMappingResponse deviceMappingResponse;
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -81,6 +84,41 @@ public class LoginPresenter implements BasePresenter<LoginInterface> {
         }
     }
 
+    public void deviceMapping(DeviceMappingRequest deviceMappingRequest) {
+        try {
+            OPMSApplication application = OPMSApplication.get(loginInterface.getContext());
+            OPMSService gitHubService = application.getDBService();
+
+            gitHubService.getDeviceMappingResponse(deviceMappingRequest)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Observer<DeviceMappingResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            disposable.add(d);
+                        }
+
+                        @Override
+                        public void onNext(DeviceMappingResponse deviceMappingResponse) {
+                            LoginPresenter.this.deviceMappingResponse = deviceMappingResponse;
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            String msg = handleError(e);
+                            loginInterface.onError(AppConstants.ERROR_CODE, msg);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            loginInterface.getDeviceMappingResponse(deviceMappingResponse);
+                        }
+                    });
+
+        } catch (Exception e) {
+            handleException(e);
+        }
+    }
 
 
     @Override

@@ -1,17 +1,25 @@
 package com.cgg.pps.view;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -23,8 +31,10 @@ import com.cgg.pps.application.OPMSApplication;
 import com.cgg.pps.databinding.ActivityLoginBinding;
 import com.cgg.pps.interfaces.DMVDeleteInterface;
 import com.cgg.pps.interfaces.LoginInterface;
+import com.cgg.pps.model.request.devicemapping.DeviceMappingRequest;
 import com.cgg.pps.model.request.truckchit.vehicledetails.VehicleDetailsRequest;
 import com.cgg.pps.model.request.validateuser.login.ValidateUserRequest;
+import com.cgg.pps.model.response.devicemapping.DeviceMappingResponse;
 import com.cgg.pps.model.response.validateuser.login.ValidateUserResponse;
 import com.cgg.pps.presenter.LoginPresenter;
 import com.cgg.pps.room.repository.DMVRepository;
@@ -48,6 +58,7 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
     private SharedPreferences sharedPreferences;
     private DMVRepository dmvRepository;
     private VehicleRepository vehicleRepository;
+    ValidateUserResponse validateUserResponseMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,13 +160,11 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
         }
     };
 
-    ValidateUserResponse validateUserResponseMain;
 
     @Override
     public void getLoginResponse(ValidateUserResponse validateUserResponse) {
         if (customProgressDialog != null && customProgressDialog.isShowing())
             customProgressDialog.dismiss();
-
 
         if (validateUserResponse != null && validateUserResponse.getStatusCode() != null
                 && validateUserResponse.getStatusCode() == AppConstants.SUCCESS_CODE &&
@@ -195,6 +204,14 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
                 validateUserResponse.getStatusCode() == AppConstants.VERSION_CODE) {
             Utils.callPlayAlert(validateUserResponse.getResponseMessage(),
                     this, getSupportFragmentManager(), true);
+        } else if (validateUserResponse != null && validateUserResponse.getStatusCode() != null
+                && validateUserResponse.getStatusCode() == AppConstants.DEVICE_MAPPING_CODE) {
+
+            customDeviceRegisterAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    validateUserResponse.getResponseMessage(),
+                    getString(R.string.ERROR));
+
         } else {
             Utils.customAlert(LoginActivity.this,
                     getResources().getString(R.string.login),
@@ -202,6 +219,61 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
                     getString(R.string.ERROR), false);
         }
 
+    }
+
+    @Override
+    public void getDeviceMappingResponse(DeviceMappingResponse deviceMappingResponse) {
+
+        if (customProgressDialog != null && customProgressDialog.isShowing())
+            customProgressDialog.dismiss();
+
+        if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                && deviceMappingResponse.getStatusCode() == AppConstants.SUCCESS_CODE) {
+
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    deviceMappingResponse.getResponseMessage(),
+                    getString(R.string.SUCCESS), false);
+
+        } else if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                && deviceMappingResponse.getStatusCode() == AppConstants.NO_DAT_CODE) {
+
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    deviceMappingResponse.getResponseMessage(),
+                    getString(R.string.ERROR), false);
+
+        } else if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                && deviceMappingResponse.getStatusCode() == AppConstants.FAILURE_CODE) {
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    deviceMappingResponse.getResponseMessage(),
+                    getString(R.string.ERROR), false);
+        } else if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                && deviceMappingResponse.getStatusCode() == AppConstants.SESSION_CODE) {
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    deviceMappingResponse.getResponseMessage(),
+                    getString(R.string.ERROR), false);
+        } else if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                &&
+                deviceMappingResponse.getStatusCode() == AppConstants.VERSION_CODE) {
+            Utils.callPlayAlert(deviceMappingResponse.getResponseMessage(),
+                    this, getSupportFragmentManager(), true);
+        } else if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                && deviceMappingResponse.getStatusCode() == AppConstants.DEVICE_MAPPING_CODE) {
+
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    deviceMappingResponse.getResponseMessage(),
+                    getString(R.string.ERROR), false);
+
+        } else {
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    getResources().getString(R.string.server_not),
+                    getString(R.string.ERROR), false);
+        }
     }
 
     private void navDashBoard(ValidateUserResponse validateUserResponse) {
@@ -408,5 +480,70 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
     @Override
     public void vehCount(int cnt) {
         dmvRepository.deleteDMVAsyncTask(this);
+    }
+
+
+    //========== Custom alert for device mapping ================
+    private void customDeviceRegisterAlert(Activity activity, String title,
+                                           String msg, String type) {
+        try {
+            final Dialog dialog = new Dialog(activity);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            if (dialog.getWindow() != null && dialog.getWindow().getAttributes() != null) {
+                dialog.getWindow().getAttributes().windowAnimations = R.style.exitdialog_animation1;
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                if (type.equalsIgnoreCase(activity.getString(R.string.SUCCESS))) {
+                    dialog.setContentView(R.layout.custom_alert_success);
+                } else if (type.equalsIgnoreCase(activity.getString(R.string.ERROR))) {
+                    dialog.setContentView(R.layout.custom_alert_register);
+                } else if (type.equalsIgnoreCase(activity.getString(R.string.WARNING))) {
+                    dialog.setContentView(R.layout.custom_alert_warning);
+                } else {
+                    dialog.setContentView(R.layout.custom_alert_information);
+                }
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+                TextView dialogTitle = dialog.findViewById(R.id.dialog_title);
+                dialogTitle.setText(activity.getResources().getString(R.string.app_name) + ": " + title);
+                TextView dialogMessage = dialog.findViewById(R.id.dialog_message);
+                dialogMessage.setText(msg);
+                Button yes = dialog.findViewById(R.id.btDialogYes);
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                        callDeviceMapping();
+                    }
+                });
+                Button no = dialog.findViewById(R.id.btDialogNo);
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                if (!dialog.isShowing())
+                    dialog.show();
+            }
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void callDeviceMapping() {
+        if (ConnectionDetector.isConnectedToInternet(LoginActivity.this)) {
+            DeviceMappingRequest deviceMappingRequest = new DeviceMappingRequest();
+            deviceMappingRequest.setDeviceId(Utils.getDeviceID(this));
+            deviceMappingRequest.setPpcCode(binding.username.getText().toString());
+            if (customProgressDialog != null)
+                customProgressDialog.show();
+            loginPresenter.deviceMapping(deviceMappingRequest);
+
+        } else {
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    getResources().getString(R.string.no_internet),
+                    getResources().getString(R.string.WARNING), false);
+        }
     }
 }

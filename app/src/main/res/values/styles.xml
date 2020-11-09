@@ -41,6 +41,12 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
     </style>
+    <style name="roundedDialog_red_register">
+        <item name="android:background">@drawable/btn_background_cancel</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+    </style>
     <style name="roundedDialog_yellow">
         <item name="android:background">@drawable/btn_background_yellow</item>
         <item name="android:textColor">#ffffff</item>

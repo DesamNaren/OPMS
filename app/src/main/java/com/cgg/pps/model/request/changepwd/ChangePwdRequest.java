@@ -1,4 +1,4 @@
-package com.cgg.pps.model.request;
+package com.cgg.pps.model.request.changepwd;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -6,6 +6,7 @@ public class AppConstants {
     public static final int NO_DAT_CODE = 700;
     public static final int VERSION_CODE = 750;
     public static final int SESSION_CODE = 900;
+    public static final int DEVICE_MAPPING_CODE = 1000;
     public final static String LOGIN_FLAG = "LOGIN_FLAG";
     public final static String PPC_DATA = "PPC_DATA";
     public final static String LOGGED_PPC_CODE = "LOGGED_PPC_CODE";

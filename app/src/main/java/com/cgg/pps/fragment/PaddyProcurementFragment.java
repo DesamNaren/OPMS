@@ -48,7 +48,7 @@ import com.cgg.pps.interfaces.DMVInterface;
 import com.cgg.pps.interfaces.PaddyProcurementInterface;
 import com.cgg.pps.interfaces.PaddyTestInterface;
 import com.cgg.pps.interfaces.RePrintInterface;
-import com.cgg.pps.model.request.ProRePrintRequest;
+import com.cgg.pps.model.request.reprint.ProRePrintRequest;
 import com.cgg.pps.model.request.farmer.gettokens.GetTokensRequest;
 import com.cgg.pps.model.request.procurement.IssuedGunnyDataRequest;
 import com.cgg.pps.model.request.procurement.PaddyOTPRequest;
