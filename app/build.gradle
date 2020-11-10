@@ -45,7 +45,6 @@ android {
         }
 
         qa {
-            debuggable true
             buildConfigField("String", "SERVER_NEW_URL", "\"http://wstestpps.cgg.gov.in/OPMSAPI/api/\"")
             signingConfig signingConfigs.release
             ext.enableCrashlytics = false
