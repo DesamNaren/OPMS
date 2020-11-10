@@ -81,7 +81,7 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return deviceID;
+        return "2222222222";
     }
 
     public static void callPlayAlert(String msg, Activity activity, FragmentManager fragmentManager, boolean flag) {

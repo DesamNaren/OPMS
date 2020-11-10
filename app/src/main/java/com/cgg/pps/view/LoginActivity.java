@@ -212,7 +212,7 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
                     validateUserResponse.getResponseMessage(),
                     getString(R.string.ERROR));
 
-        } else {
+        }  else {
             Utils.customAlert(LoginActivity.this,
                     getResources().getString(R.string.login),
                     getResources().getString(R.string.server_not),
@@ -267,6 +267,22 @@ public class LoginActivity extends LocBaseActivity implements LoginInterface, DM
                     getResources().getString(R.string.login),
                     deviceMappingResponse.getResponseMessage(),
                     getString(R.string.ERROR), false);
+
+        }else if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                && deviceMappingResponse.getStatusCode() == AppConstants.DEVICE_MAP_SUCCESS) {
+
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    deviceMappingResponse.getResponseMessage(),
+                    getString(R.string.SUCCESS), false);
+
+        } else if (deviceMappingResponse != null && deviceMappingResponse.getStatusCode() != null
+                && deviceMappingResponse.getStatusCode() == AppConstants.DEVICE_MAP_EXIST) {
+
+            Utils.customAlert(LoginActivity.this,
+                    getResources().getString(R.string.login),
+                    deviceMappingResponse.getResponseMessage(),
+                    getString(R.string.INFORMATION), false);
 
         } else {
             Utils.customAlert(LoginActivity.this,
