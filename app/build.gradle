@@ -52,6 +52,7 @@ android {
         }
 
         uat {
+            debuggable false
             buildConfigField("String", "SERVER_NEW_URL", "\"http://wsdemopps.cgg.gov.in/OPMSAPI/api/\"")
             signingConfig signingConfigs.release
             ext.enableCrashlytics = false

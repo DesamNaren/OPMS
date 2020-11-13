@@ -515,7 +515,6 @@ public class Utils {
     }
 
 
-
     //========== Custom alert for success,error and warning ================
     public static void customAlert(Activity activity, String title, String msg, String type, boolean flag) {
         try {
